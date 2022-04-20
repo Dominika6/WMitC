@@ -1,0 +1,24 @@
+export const FETCH_ALL = 'FETCH_ALL';
+export const FETCH_TASK = 'FETCH_TASK';
+export const FETCH_BY_SEARCH = 'FETCH_BY_SEARCH';
+export const CREATE = 'CREATE';
+export const UPDATE = 'UPDATE';
+export const DELETE = 'DELETE';
+export const COMMENT = "COMMENT";
+export const UPDATE_PASSWORD = 'UPDATE_PASSWORD';
+
+export const START_LOADING = 'START_LOADING';
+export const END_LOADING = 'END_LOADING';
+
+export const AUTH = 'AUTH';
+export const LOGOUT = 'LOGOUT';
+
+export const LOGIN = 'LOGIN';
+export const CREATE_USER = 'CREATE_USER';
+export const CREATE_CLIENT = 'CREATE_CLIENT';
+export const CREATE_PROJECT = 'CREATE_PROJECT';
+export const CREATE_TASK = 'CREATE_TASK';
+export const UPDATE_TASK = 'UPDATE_TASK';
+
+export const FETCH_CLIENTS = 'FETCH_CLIENTS';
+export const FETCH_TEAM = 'FETCH_TEAM';
