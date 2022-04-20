@@ -71,7 +71,7 @@ const Navbar1 = () => {
                         <>
                             <Link to={"/myAccount"} className="nav-link">Account</Link> &nbsp;
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <Button onClick={logout}>Logout</Button>
+                            <Button onClick={logout} variant="outline-danger">Logout</Button>
                         </>
                     ):(
                         <>
