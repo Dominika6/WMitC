@@ -1,8 +1,9 @@
 import React from "react";
 import { Container } from "@material-ui/core";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-import Navbar from "./components/Navbar/Navbar";
+import Navbar1 from "./components/Navbar/Navbar1";
 import Login from "./components/Auth/Login";
 import MyAccount from "./components/Auth/MyAccount";
 import CreateUser from "./components/Admin/CreateUser";
@@ -18,7 +19,6 @@ import TasksHomeCoordinator from "./components/Coordinator/TasksHomeCoordinator"
 import TaskDetails from "./components/TaskDetails/TaskDetails";
 
 
-
 const App = () => {
 
     //todo - pozwalanie na otwieranie danych stron tylko dla uprawnionych - auth
@@ -26,7 +26,8 @@ const App = () => {
     return(
         <BrowserRouter>
             <Container maxidth="xl">
-                <Navbar />
+                <Navbar1/>
+                <br/><br/><br/><br/><br/>
                 <Switch>
                     <Route path="/" exact component={() => <Redirect to="/" />} />
                     <Route path="/task/:id" exact component={TaskDetails} />
