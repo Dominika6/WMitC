@@ -18,6 +18,7 @@ import TasksHomeCoordinator from "./components/Coordinator/TasksHomeCoordinator"
 import TaskDetails from "./components/TaskDetails/TaskDetails";
 
 
+
 const App = () => {
 
     //todo - pozwalanie na otwieranie danych stron tylko dla uprawnionych - auth

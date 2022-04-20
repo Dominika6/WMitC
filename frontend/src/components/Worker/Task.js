@@ -18,7 +18,6 @@ const Task = ({ task }) => {
                     <Typography variant="h6">Task name: {task.task_name}</Typography>
                     <Typography variant="h6">Deadline: {task.deadline}</Typography>
                     <Typography variant="h6">Status: {task.implementation_status}</Typography>
-
                 </div>
             </ButtonBase>
         </Card>
