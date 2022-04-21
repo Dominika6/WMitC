@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Grow, Grid } from '@material-ui/core';
+import { Grow, Grid } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 
 import { getTeamTasksBySearch } from '../../actions/tasks';
@@ -18,13 +18,9 @@ const TasksHomeCoordinator = () => {
 
     return (
         <Grow in>
-            <Container>
-                <Grid container justifyContent="space-between" alignItems="stretch" spacing={3}>
-                    <Grid item xs={12} sm={7}>
-                        <TasksGetCoordinator setCurrentId={setCurrentId} />
-                    </Grid>
-                </Grid>
-            </Container>
+            <Grid container justifyContent="space-between" alignItems="stretch" spacing={3}>
+                <TasksGetCoordinator setCurrentId={setCurrentId} />
+            </Grid>
         </Grow>
     );
 };

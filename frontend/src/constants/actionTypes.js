@@ -1,4 +1,5 @@
 export const FETCH_ALL = 'FETCH_ALL';
+export const FETCH_ALL_PROJECT = 'FETCH_ALL_PROJECT';
 export const FETCH_TASK = 'FETCH_TASK';
 export const FETCH_BY_SEARCH = 'FETCH_BY_SEARCH';
 export const CREATE = 'CREATE';
@@ -7,7 +8,9 @@ export const DELETE = 'DELETE';
 export const COMMENT = "COMMENT";
 export const UPDATE_PASSWORD = 'UPDATE_PASSWORD';
 
+export const START_LOADING_PROJECT = 'START_LOADING_PROJECT';
 export const START_LOADING = 'START_LOADING';
+export const END_LOADING_PROJECT = 'END_LOADING_PROJECT';
 export const END_LOADING = 'END_LOADING';
 
 export const AUTH = 'AUTH';

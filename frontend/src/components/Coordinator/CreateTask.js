@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { Paper, Grid, Typography, Container } from "@material-ui/core";
+import { Typography, Container } from "@material-ui/core";
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from "react-router-dom";
-import { Button, Form } from "react-bootstrap";
-
-import Input from "../Auth/Input";
+import {Button, Form, FormControl, InputGroup} from "react-bootstrap";
 import { createTask } from "../../actions/tasks";
 import { getAllUsers } from "../../actions/users";
+import { getAllProjects } from "../../actions/projects";
 
 
 const initialState = {
-    project: 'Project1',
+    project: '',
     id_user: '',
     name: '',
     description: '',
@@ -28,10 +27,12 @@ const CreateTask = () => {
     const dispatch = useDispatch();
     const history = useHistory();
     const myTeam = [];
+    const myClients = [];
     const { users, isLoading } = useSelector((state) => state.users);
+    const { projects, isProjectLoading } = useSelector((state) => state.projects);
 
     useEffect(() => {
-        dispatch(getAllUsers());
+        dispatch(getAllUsers()).then(dispatch(getAllProjects()))
     }, [currentId, dispatch]);
 
     isLoading === false ?
@@ -40,9 +41,18 @@ const CreateTask = () => {
         ) : (<></>))
         : (console.log())
 
+    const isMyClient = true;
+    //TODO sprawdzanie czy dany klient jest przypisany do danego koordynatora
+
+    isProjectLoading === false ?
+        projects.map((project) => ( isMyClient ) ? (
+            myClients.push(project)
+        ) : (<></>))
+        : (console.log())
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(formData);
+        console.log(formData, history);
         dispatch(createTask(formData, history));
     };
 
@@ -52,29 +62,39 @@ const CreateTask = () => {
 
     return(
         <Container component="main" maxWidth="xs">
-            <Paper elevation={3}>
-                <Typography variant="h5">{ 'Create Task' }</Typography>
-                <form onSubmit={handleSubmit}>
-                    <Grid container spacing={2}>
-                        {/* TODO wybranie projektu i deadlinu */}
-                        <Input name="name" label="Task Name" handleChange={handleChange} autoFocus half />
-                        <Input name="description" label="Task description" handleChange={handleChange} half />
-                        <Form>
-                            <Form.Group className="mb-3" controlId="formBasicSelect">
-                                <Form.Label>
-                                    Choose User
-                                </Form.Label>
-                                <Form.Control as="select" name="id_user" onChange={handleChange}>
-                                    { myTeam.map((user) => ( <option value={user?.email} key={user?.email} >{user?.name}</option> )) }
-                                </Form.Control>
-                            </Form.Group>
-                        </Form>
-                    </Grid>
-                    <div className="d-grid gap-2">
-                        <Button type="submit" variant="success" >Create Task</Button>
-                    </div>
-                </form>
-            </Paper>
+            <br/><br/>
+            <Typography variant="h4">{ ' Create Task ' }</Typography><br/>
+            <form onSubmit={handleSubmit}>
+                {/* TODO wybranie deadlinu */}
+
+                <Typography variant="h6">{ 'Project' }</Typography>
+                <Form.Group className="mb-3" controlId="formBasicSelect">
+                    <Form.Control as="select" name="project" onChange={handleChange}>
+                        { myClients.map((project) => ( <option value={project?.project_name} key={project?.project_name} >{project?.project_name}({project?.id_client})</option> )) }
+                    </Form.Control>
+                </Form.Group><br/>
+
+                <Typography variant="h6">{ 'Title' }</Typography>
+                <InputGroup>
+                    <FormControl as="textarea" aria-label="Title" name="name" onChange={handleChange}/>
+                </InputGroup><br/>
+
+                <Typography variant="h6">{ 'Description' }</Typography>
+                <InputGroup>
+                    <FormControl as="textarea" aria-label="Description" name="description" onChange={handleChange}/>
+                </InputGroup><br/>
+
+                <Typography variant="h6">{ 'User' }</Typography>
+                <Form.Group className="mb-3" controlId="formBasicSelect">
+                    <Form.Control as="select" name="id_user" onChange={handleChange}>
+                        { myTeam.map((user) => ( <option value={user?.email} key={user?.email} >{user?.name}</option> )) }
+                    </Form.Control>
+                </Form.Group><br/>
+
+                <div className="d-grid gap-2">
+                    <Button type="submit" variant="success" >Create Task</Button>
+                </div>
+            </form>
         </Container>
     )
 }

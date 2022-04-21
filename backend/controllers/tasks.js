@@ -28,10 +28,9 @@ export const getTeamTasksBySearch = async (req, res) => {
 
 export const createTask = async (req, res) => {
     const { project, id_user, name, description, task_comments, deadline, implementation_status } = req.body;
-
     try {
-        const existingTask = await Projects.findOne({project_name: project});
-        if(!existingTask) return res.status(400).json({ messsage: "Task do not exist." });
+        const existingProject = await Projects.findOne({project_name: project});
+        if(!existingProject) return res.status(400).json({ messsage: "Project do not exist." });
         const result = await Tasks.create({ id_project: project, id_user: id_user, task_name: name, task_description: description, task_comments: task_comments, deadline: deadline, implementation_status: implementation_status });
         res.status(200).json({ result: result });
     } catch(error) {

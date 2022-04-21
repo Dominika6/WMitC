@@ -27,4 +27,14 @@ export const deleteProject = async (req, res) => {
     res.json({ message: 'Project deleted successfully' });
 }
 
+
+export const getAllProjects = async (req, res) => {
+    try {
+        const allProjects = await Projects.find();
+        res.status(200).json(allProjects);
+    } catch (error) {
+        res.status(404).json({ message: error.message });
+    }
+}
+
 export default router;
