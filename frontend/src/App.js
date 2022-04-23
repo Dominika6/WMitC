@@ -1,6 +1,6 @@
 import React from "react";
 import { Container } from "@material-ui/core";
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import Navbar1 from "./components/Navbar/Navbar1";
@@ -17,6 +17,7 @@ import TeamHome from "./components/Worker/TeamHome";
 import UsersHome from "./components/Admin/UsersHome";
 import TasksHomeCoordinator from "./components/Coordinator/TasksHomeCoordinator";
 import TaskDetails from "./components/TaskDetails/TaskDetails";
+import About from "./About";
 
 
 const App = () => {
@@ -29,7 +30,8 @@ const App = () => {
                 <Navbar1/>
                 <br/><br/><br/><br/><br/>
                 <Switch>
-                    <Route path="/" exact component={() => <Redirect to="/" />} />
+                    <Route path="/" exact component={About} />
+                    {/*<Route path="/" exact component={() => <Redirect to="/" />} />*/}
                     <Route path="/task/:id" exact component={TaskDetails} />
                     <Route path="/login" exact component={Login} />
                     <Route path="/myAccount" exact component={MyAccount} />

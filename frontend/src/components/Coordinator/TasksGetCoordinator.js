@@ -9,7 +9,7 @@ import { Container } from "react-bootstrap";
 const TasksGetCoordinator = ({ setCurrentId }) => {
 
     const { tasks, isLoading } = useSelector((state) => state.tasks);
-
+    //todo filtrowanie ze względu na status wykonania/ projekty
     if (!tasks.length && !isLoading) return 'Your team has no tasks!';
     return(
         isLoading ? <CircularProgress/> : (

@@ -29,12 +29,12 @@ const TaskCoordinator = ({ task }) => {
                 <OverlayTrigger placement="right" delay={{ show: 250, hide: 400 }} overlay={renderTooltip}>
                     <ButtonBase onClick={openTask} component="span" name="test" >
                         <div>
-                            <Typography variant="h6">Project: {task.id_project}</Typography>
+                            <Typography variant="h5">{task.id_project}</Typography>
                             {/*TODO: wyciąganie z bazy też danych o projekcie, później pogrupować taski ze względu na projekty*/}
-                            <Typography variant="h6">Name: {task.task_name}</Typography>
-                            <Typography variant="h6">Deadline: {task.deadline}</Typography>
-                            <Typography variant="h6">User: {task.id_user}</Typography>
-                            <Typography variant="h6">Status: {task.implementation_status}</Typography>
+                            <Typography><b>Title:</b> {task.task_name}</Typography>
+                            <Typography><b>Deadline:</b> {task?.deadline.split('T')[0]}</Typography>
+                            <Typography><b>User:</b> {task.id_user}</Typography>
+                            <Typography><b>Status:</b> {task.implementation_status}</Typography>
                             {task.implementation_status === 'done' ? (
                                 <ProgressBar animated now={100} />
                             ):(task.implementation_status === 'in progress' ? (
@@ -52,7 +52,6 @@ const TaskCoordinator = ({ task }) => {
                     ):<></>}
                 </CardActions>
             </Container>
-
         </Card>
     );
 };

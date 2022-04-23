@@ -68,7 +68,7 @@ const CreateProject = () => {
                     <FormControl as="textarea" aria-label="Description" name="description" onChange={handleChange}/>
                 </InputGroup><br/>
 
-                <div>
+                <div className="d-grid gap-2">
                     <Button type="submit" variant="success">Create Project</Button>
                 </div>
             </form>

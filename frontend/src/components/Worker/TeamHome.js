@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Grow, Grid } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 
 import { getTeamBySearch } from '../../actions/users';
@@ -16,15 +15,10 @@ const TeamHome = () => {
     }, [currentId, dispatch]); // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
-        <Grow in>
-            <Container>
-                <Grid container justifyContent="space-between" alignItems="stretch" spacing={3}>
-                    <Grid item xs={12} sm={7}>
-                        <TeamGet setCurrentId={setCurrentId} />
-                    </Grid>
-                </Grid>
-            </Container>
-        </Grow>
+        <>
+            <h3>Your team</h3><br/>
+            <TeamGet setCurrentId={setCurrentId} />
+        </>
     );
 };
 

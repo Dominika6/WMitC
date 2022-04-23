@@ -76,7 +76,7 @@ const Navbar1 = () => {
                     ):(
                         <>
                             <Link to={"/login"} className="nav-link">
-                                <Button>
+                                <Button variant="primary">
                                     Login
                                 </Button>
                             </Link>

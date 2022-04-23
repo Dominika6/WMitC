@@ -1,7 +1,9 @@
 import React, { useState } from "react";
-import { Button, Paper, Grid, Typography, Container } from "@material-ui/core";
+import { Typography, Container } from "@material-ui/core";
 import { useDispatch } from 'react-redux';
 import { useHistory } from "react-router-dom";
+import { FormControl, InputGroup } from 'react-bootstrap';
+import { Button } from "react-bootstrap";
 
 import Input from "./Input";
 import { login } from "../../actions/login";
@@ -29,23 +31,23 @@ const Login = () => {
 
     return(
         <Container component="main" maxWidth="xs">
-            <Paper elevation={3}>
-                <Typography variant="h5">{ ' Login ' }</Typography>
+                <Typography variant="h4">{ ' WMitC ' }</Typography><br/>
                 <form onSubmit={handleSubmit}>
-                    <Grid container spacing={2}>
-                        <Input name="email" label="Email address" handleChange={handleChange} type="email" />
-                        <Input
-                            name="password"
-                            label="Password"
-                            handleChange={handleChange}
-                            type={showPassword ? "text" : "password"}
-                            handleShowPassword={handleShowPassword} />
-                    </Grid>
-                    <Button type="submit" fullWidth variant="contained" color="primary" >
-                        { 'LOGIN' }
-                    </Button>
+                    <Typography variant="h6">{'Email address'}</Typography>
+                    <InputGroup>
+                        <FormControl size="lg" required aria-label="Email address" name="email" onChange={handleChange}/>
+                    </InputGroup><br/>
+
+                    <Typography variant="h6">{'Password'}</Typography>
+                    <Input name="password" handleChange={handleChange} type={showPassword ? "text" : "password"} handleShowPassword={handleShowPassword} />
+                    <br/><br/>
+
+                    <div className="d-grid gap-2">
+                        <Button type="submit" variant="success">
+                            { 'Log in' }
+                        </Button>
+                    </div>
                 </form>
-            </Paper>
         </Container>
     )
 }

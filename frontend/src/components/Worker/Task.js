@@ -1,6 +1,7 @@
 import React from 'react';
-import { ButtonBase, Card, Typography } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
+import { Card } from 'react-bootstrap';
+import { Typography } from "@material-ui/core";
 
 
 const Task = ({ task }) => {
@@ -11,15 +12,15 @@ const Task = ({ task }) => {
     };
 
     return (
-        <Card  raised elevation={6}>
-            <ButtonBase onClick={openTask} component="span" name="test" >
+        <Card>
+            <Card.Body onClick={openTask}>
                 <div>
-                    <Typography variant="h6">{task.id_project}</Typography>
-                    <Typography variant="h6">Task name: {task.task_name}</Typography>
-                    <Typography variant="h6">Deadline: {task.deadline}</Typography>
-                    <Typography variant="h6">Status: {task.implementation_status}</Typography>
+                    <Typography variant="h5">{task?.id_project}</Typography><br/>
+                    <Typography variant="h6"><b>Title:</b> {task?.task_name}</Typography>
+                    <Typography variant="h6"><b>Deadline:</b> {task?.deadline.split('T')[0]}</Typography>
+                    <Typography variant="h6"><b>Status:</b> {task?.implementation_status}</Typography>
                 </div>
-            </ButtonBase>
+            </Card.Body>
         </Card>
     );
 };

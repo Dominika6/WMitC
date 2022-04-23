@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { Button, Paper, Grid, Typography, Container } from "@material-ui/core";
+import { Typography, Container } from "@material-ui/core";
 import { useDispatch } from 'react-redux';
 import { useHistory } from "react-router-dom";
+import { Button, FormControl, InputGroup } from "react-bootstrap";
 
-import Input from "../Auth/Input";
 import { createClient } from "../../actions/clients";
 
 
@@ -14,6 +14,7 @@ const initialState = {
     email: ''
 }
 
+// todo wybieranie koordynatora
 // TODO informacja, że client został utworzony
 
 const CreateClient = () => {
@@ -33,20 +34,30 @@ const CreateClient = () => {
     };
 
     return(
-        <Container component="main" maxWidth="xs">
-            <Paper elevation={3}>
-                <Typography variant="h5">{ 'Create Client' }</Typography>
-                <form onSubmit={handleSubmit}>
-                    <Grid container spacing={2}>
-                        <Input name="name" label="Company Name" handleChange={handleChange} autoFocus half />
-                        <Input name="phoneNumber" label="Phone Number" handleChange={handleChange} half />
-                        <Input name="email" label="Email address" handleChange={handleChange} type="email" />
-                    </Grid>
-                    <Button type="submit" fullWidth variant="contained" color="primary">
+        <Container component="main" maxWidth="xs"><br/><br/>
+            <Typography variant="h4">{ 'Create Client' }</Typography><br/>
+            <form onSubmit={handleSubmit}>
+                <Typography>{'Company Name'}</Typography>
+                <InputGroup>
+                    <FormControl aria-label="name" name="name" onChange={handleChange}/>
+                </InputGroup><br/>
+
+                <Typography>{'Phone Number'}</Typography>
+                <InputGroup>
+                    <FormControl aria-label="phoneNumber" name="phoneNumber" onChange={handleChange}/>
+                </InputGroup><br/>
+
+                <Typography>{'Email address'}</Typography>
+                <InputGroup>
+                    <FormControl aria-label="email" name="email" onChange={handleChange} type="email"/>
+                </InputGroup><br/>
+
+                <div className="d-grid gap-2">
+                    <Button type="submit" variant="success">
                         { 'Create Client' }
                     </Button>
-                </form>
-            </Paper>
+                </div>
+            </form>
         </Container>
     )
 }

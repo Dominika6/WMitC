@@ -3,6 +3,7 @@ import { Typography, Container } from "@material-ui/core";
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from "react-router-dom";
 import {Button, Form, FormControl, InputGroup} from "react-bootstrap";
+
 import { createTask } from "../../actions/tasks";
 import { getAllUsers } from "../../actions/users";
 import { getAllProjects } from "../../actions/projects";
@@ -27,7 +28,7 @@ const CreateTask = () => {
     const dispatch = useDispatch();
     const history = useHistory();
     const myTeam = [];
-    const myClients = [];
+    const myClientsProjects = [];
     const { users, isLoading } = useSelector((state) => state.users);
     const { projects, isProjectLoading } = useSelector((state) => state.projects);
 
@@ -46,9 +47,11 @@ const CreateTask = () => {
 
     isProjectLoading === false ?
         projects.map((project) => ( isMyClient ) ? (
-            myClients.push(project)
+            myClientsProjects.push(project)
         ) : (<></>))
         : (console.log())
+
+    //todo - coś zamiast powyższego console.loga
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -70,7 +73,7 @@ const CreateTask = () => {
                 <Typography variant="h6">{ 'Project' }</Typography>
                 <Form.Group className="mb-3" controlId="formBasicSelect">
                     <Form.Control as="select" name="project" onChange={handleChange}>
-                        { myClients.map((project) => ( <option value={project?.project_name} key={project?.project_name} >{project?.project_name}({project?.id_client})</option> )) }
+                        { myClientsProjects.map((project) => ( <option value={project?.project_name} key={project?.project_name} >{project?.project_name} ({project?.id_client})</option> )) }
                     </Form.Control>
                 </Form.Group><br/>
 

@@ -12,14 +12,13 @@ const ClientGetAdmin = ({ setCurrentId }) => {
 
     return(
         isLoading ? <CircularProgress/> : (
-            <Grid container alignItems="stretch" spacing={3}>
-                {
-                    clients.map((client) => (
-                        <Grid key={client._id} item xs={12} sm={12} md={6} lg={3}>
-                            <Client client={client} setCurrentId={setCurrentId} />
-                        </Grid>
-                    ))}
-            </Grid>
+            <>
+                {clients.map((client) => (
+                    <Grid key={client._id} item>
+                        <Client client={client} setCurrentId={setCurrentId}/><br/>
+                    </Grid>
+                ))}
+            </>
         )
     )
 }

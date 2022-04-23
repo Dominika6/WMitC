@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Grow, Grid } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 
 import { getAllUsers } from '../../actions/users';
@@ -15,15 +14,9 @@ const UsersHome = () => {
     }, [currentId, dispatch]);
 
     return (
-        <Grow in>
-            <Container>
-                <Grid container justifyContent="space-between" alignItems="stretch" spacing={3}>
-                    <Grid item xs={12} sm={7}>
-                        <UsersGet setCurrentId={setCurrentId} />
-                    </Grid>
-                </Grid>
-            </Container>
-        </Grow>
+        <>
+            <UsersGet setCurrentId={setCurrentId}/>
+        </>
     );
 };
 

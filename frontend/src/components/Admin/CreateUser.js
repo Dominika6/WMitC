@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { Button, Paper, Grid, Typography, Container } from "@material-ui/core";
+import { Typography, Container } from "@material-ui/core";
 import { useDispatch } from 'react-redux';
 import { useHistory } from "react-router-dom";
+import { Button, FormControl, InputGroup } from "react-bootstrap";
 
-import Input from "../Auth/Input";
 import { createUser } from "../../actions/users";
+import Input from "../Auth/Input";
 
 
 const initialState = {
@@ -24,7 +25,6 @@ const initialState = {
 //     { value: 'user', label: 'Worker' }
 // ];
 
-
 //https://dev.to/helmarjunior/using-react-select-async-with-react-hooks-and-pagination-22g2 -> TODO WYBIERANIE
 
 // TODO po zrobieniu usera brak przekierowania (logowania ) i wyświetlenie danych do logowania ( do przekazania dla usera )
@@ -35,14 +35,12 @@ const CreateUser = () => {
     const dispatch = useDispatch();
     const history = useHistory();
 
-
     const handleShowPassword = () => setShowPassword((prevShowPassword) => ! prevShowPassword);
 
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(formData);
         dispatch(createUser(formData, history));
-
     };
 
     const handleChange = (e) => {
@@ -51,24 +49,46 @@ const CreateUser = () => {
     //todo po zrobieniu konta użytkownika pozostać na stronie, wyczyścić formularz i wyświetlić info, że został utworzony
 
     return(
-        <Container component="main" maxWidth="xs">
-            <Paper elevation={3}>
-                <Typography variant="h5">{ 'Create User' }</Typography>
-                <form onSubmit={handleSubmit}>
-                    <Grid container spacing={2}>
-                        <Input name="firstName" label="First Name" handleChange={handleChange} autoFocus half />
-                        <Input name="lastName" label="Last Name" handleChange={handleChange} half />
-                        <Input name="phoneNumber" label="Phone Number" handleChange={handleChange} half />
-                        <Input name="email" label="Email address" handleChange={handleChange} type="email" />
-                        <Input name="password" label="Password" handleChange={handleChange} type={showPassword ? "text" : "password"} handleShowPassword={handleShowPassword} />
-                        <Input name="confirmPassword" label="Repeat Password" handleChange={handleChange} type={showPassword ? "text" : "password"} handleShowPassword={handleShowPassword}/>
-                        {/*TODO Na razie koordynatora i pozycję dodajemy na sztywno - zrobić select */}
-                        </Grid>
-                    <Button type="submit" fullWidth variant="contained" color="primary">
+        <Container component="main" maxWidth="xs"><br/><br/>
+            <Typography variant="h4">{ 'Create User' }</Typography><br/>
+            <form onSubmit={handleSubmit}>
+                <Typography>{'First Name'}</Typography>
+                <InputGroup>
+                    <FormControl aria-label="firstName" name="firstName" onChange={handleChange}/>
+                </InputGroup><br/>
+
+                <Typography>{'Last Name'}</Typography>
+                <InputGroup>
+                    <FormControl aria-label="lastName" name="lastName" onChange={handleChange}/>
+                </InputGroup><br/>
+
+                <Typography>{'Phone Number'}</Typography>
+                <InputGroup>
+                    <FormControl aria-label="phoneNumber" name="phoneNumber" onChange={handleChange}/>
+                </InputGroup><br/>
+
+                <Typography>{'Email address'}</Typography>
+                <InputGroup>
+                    <FormControl aria-label="email" name="email" onChange={handleChange}/>
+                </InputGroup><br/>
+
+                <Typography>{'Password'}</Typography>
+                <InputGroup>
+                    <Input name="password" handleChange={handleChange} type={showPassword ? "text" : "password"} handleShowPassword={handleShowPassword} />
+                </InputGroup><br/>
+
+                <Typography>{'Repeat Password'}</Typography>
+                <InputGroup>
+                    <Input name="confirmPassword" handleChange={handleChange} type={showPassword ? "text" : "password"} handleShowPassword={handleShowPassword} />
+                </InputGroup><br/>
+
+                {/*TODO Na razie koordynatora i pozycję dodajemy na sztywno - zrobić select */}
+                <div className="d-grid gap-2">
+                    <Button type="submit" variant="success" >
                         { 'Create User' }
                     </Button>
-                </form>
-            </Paper>
+                </div>
+            </form>
         </Container>
     )
 }

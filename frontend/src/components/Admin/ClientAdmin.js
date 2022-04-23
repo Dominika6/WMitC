@@ -1,18 +1,19 @@
 import React from 'react';
+import { Card } from 'react-bootstrap';
+import { Typography } from "@material-ui/core";
 
-import { ButtonBase, Card, Typography } from "@material-ui/core";
 
 const ClientAdmin = ({ client }) => {
 
     return (
-        <Card  raised elevation={6}>
-            <ButtonBase component="span" name="test" >
+        <Card>
+            <Card.Body>
                 <div>
-                    <Typography variant="h6">Name: {client.name}</Typography>
-                    <Typography variant="h6">Phone Number: {client.phone_number}</Typography>
-                    <Typography variant="h6">Email: {client.email}</Typography>
+                    <Typography variant="h6"><b>Name:</b> {client.name}</Typography>
+                    <Typography variant="h6"><b>Phone:</b> {client.phone_number}</Typography>
+                    <Typography variant="h6"><b>Email:</b> {client.email}</Typography>
                 </div>
-            </ButtonBase>
+            </Card.Body>
         </Card>
     );
 };
