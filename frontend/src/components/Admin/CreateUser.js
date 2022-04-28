@@ -16,7 +16,7 @@ const initialState = {
     email: '',
     password: '',
     confirmPassword: '',
-    position: ''
+    position: 'admin'
 }
 
 const positions = [
@@ -103,13 +103,21 @@ const CreateUser = () => {
                 <>
                     <Typography>{'Supervisor'}</Typography>
                     <Form.Control as="select" name="supervisor" onChange={handleChange}>
-                        {allUsers.map(user => (user?.position === 'admin') ? <option key={user?.email} value={user?.email} >{user?.name}</option> : <></> )}
+                        {allUsers.map(user => {
+                            if (user?.position === 'admin') {
+                                return <option key={user?.email} value={user?.email} >{user?.name}</option>
+                            }
+                        } )}
                     </Form.Control><br/>
                 </> : (formData?.position === 'user') ?
                 <>
                     <Typography>{'Supervisor'}</Typography>
                     <Form.Control as="select" name="supervisor" onChange={handleChange}>
-                        {allUsers.map(user => (user?.position === 'manager') ? <option key={user?.email} value={user?.email} >{user?.name}</option> : <></> )}
+                        {allUsers.map(user => {
+                            if (user?.position === 'manager') {
+                                return <option key={user?.email} value={user?.email} >{user?.name}</option>
+                            }
+                        } )}
                     </Form.Control><br/>
                 </> : (formData?.position === 'admin') ? <></>:<></>
                 }

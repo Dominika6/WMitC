@@ -15,7 +15,6 @@ export default (state = { isLoading: true, users: [] }, action) => {
             return { ...state, users: state.users.map((user) => user._id === action.payload._id? action.payload : user) };
 
         case CREATE_USER:
-            console.log(action.data)
             alert(`${action?.data?.message}`)
             window.location.reload()
             return { ...state, users: action?.data };
