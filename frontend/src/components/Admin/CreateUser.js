@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Typography, Container } from "@material-ui/core";
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from "react-router-dom";
 import { Form, Button, FormControl, InputGroup } from "react-bootstrap";
+import { Typography, Container } from "@material-ui/core";
 
 import { createUser } from "../../actions/users";
-import Input from "../Auth/Input";
 import { getAllUsers } from "../../actions/users";
+import Input from "../Auth/Input";
 
 
 const initialState = {
@@ -32,7 +31,6 @@ const CreateUser = () => {
     const [formData, setFormData] = useState(initialState);
     const [currentId] = useState(0);
     const dispatch = useDispatch();
-    const history = useHistory();
     const { users, isLoading } = useSelector((state) => state.users);
     const allUsers = [];
 
@@ -50,17 +48,16 @@ const CreateUser = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(formData);
+        console.log('formData z handleSubmit: ',formData);
         if(formData.position === 'admin'){
             formData.supervisor = 'none';
         }
-        dispatch(createUser(formData, history));
+        dispatch(createUser(formData));
     };
 
     const handleChange = (e) => {
         setFormData({...formData, [e.target.name]: e.target.value});
     };
-    //todo po zrobieniu konta użytkownika pozostać na stronie, wyczyścić formularz i wyświetlić info, że został utworzony i dane do logowania ( do przekazania dla usera )
 
     return(
         <Container component="main" maxWidth="xs"><br/><br/>
@@ -102,20 +99,19 @@ const CreateUser = () => {
                         {positions.map((position) => <option value={position.value} key={position.value}>{position.label}</option> )}
                     </Form.Control>
                 </Form.Group>
-
-                {formData.position === 'manager' ?
+                {formData?.position === 'manager' ?
                 <>
                     <Typography>{'Supervisor'}</Typography>
                     <Form.Control as="select" name="supervisor" onChange={handleChange}>
-                        {allUsers.map((user) => (user.position === 'admin') ? <option value={user.email} key={user.email}>{user.name}</option> : <></> )}
+                        {allUsers.map(user => (user?.position === 'admin') ? <option key={user?.email} value={user?.email} >{user?.name}</option> : <></> )}
                     </Form.Control><br/>
-                </> : (formData.position === 'user') ?
+                </> : (formData?.position === 'user') ?
                 <>
                     <Typography>{'Supervisor'}</Typography>
                     <Form.Control as="select" name="supervisor" onChange={handleChange}>
-                        {allUsers.map((user) => (user.position === 'manager') ? <option value={user.email} key={user.email}>{user.name}</option> : <></> )}
+                        {allUsers.map(user => (user?.position === 'manager') ? <option key={user?.email} value={user?.email} >{user?.name}</option> : <></> )}
                     </Form.Control><br/>
-                </> : (formData.position === 'admin') ? <></>:<></>
+                </> : (formData?.position === 'admin') ? <></>:<></>
                 }
 
                 <div className="d-grid gap-2">
