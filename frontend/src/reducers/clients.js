@@ -3,6 +3,8 @@ import { CREATE_CLIENT, END_LOADING, FETCH_ALL, START_LOADING } from "../constan
 export default (state = { isLoading: true, clients:[] }, action) => {
     switch (action.type){
         case CREATE_CLIENT:
+            alert(`${action?.data?.message}`)
+            window.location.reload()
             return { ...state, clients: [...state.clients, action.payload] };
         case FETCH_ALL:
             return { ...state, clients: action.payload };

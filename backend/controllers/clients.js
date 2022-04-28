@@ -12,7 +12,7 @@ export const createClient = async (req, res) => {
         const existingClient = await Clients.findOne({email});
         if(existingClient) return res.status(400).json({ messsage: "Client already exist." });
         const result = await Clients.create({ name: name, phone_number: phoneNumber, email, id_supervisor: supervisor});
-        res.status(200).json({ result: result });
+        res.status(200).json({ result: result, message: 'Client created successfully.' });
     } catch(error) {
         res.status(500).json({ message: 'Something went wrong.' });
     }
