@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const clientsSchema = mongoose.Schema({
     id: { type: String },
-    id_supervisor: { type: String },
+    id_supervisor: { type: String, required: true },
     name: { type: String, required: true },
     phone_number: { type: String, required: true },
     email: { type: String, required: true }

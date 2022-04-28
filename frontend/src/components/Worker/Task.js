@@ -17,7 +17,7 @@ const Task = ({ task }) => {
                 <div>
                     <Typography variant="h5">{task?.id_project}</Typography><br/>
                     <Typography variant="h6"><b>Title:</b> {task?.task_name}</Typography>
-                    <Typography variant="h6"><b>Deadline:</b> {task?.deadline.split('T')[0]}</Typography>
+                    <Typography variant="h6"><b>Deadline:</b> {(task.deadline) ? task?.deadline.split('T')[0] : <></>}</Typography>
                     <Typography variant="h6"><b>Status:</b> {task?.implementation_status}</Typography>
                 </div>
             </Card.Body>
