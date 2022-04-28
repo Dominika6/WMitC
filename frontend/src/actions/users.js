@@ -2,11 +2,11 @@ import * as api from "../api";
 import { CREATE_USER, END_LOADING, FETCH_ALL, FETCH_TEAM, START_LOADING, UPDATE_PASSWORD } from "../constants/actionTypes";
 
 
-export const createUser = (formData, history) => async (dispatch) => {
+export const createUser = (formData) => async (dispatch) => {
     try {
         const { data } = await api.createUser(formData);
+        console.log('data z actions', data)
         dispatch({ type: CREATE_USER, data });
-        history.push('/createUser');
     } catch (error) {
         console.log(error);
     }

@@ -27,12 +27,11 @@ export const createUser = async (req, res) => {
 
     try {
         const existingUser = await Users.findOne({email});
-        if(existingUser) return res.status(400).json({ messsage: "User already exist." });
+        if(existingUser) return res.status(400).json({ messsage: "Email already exist in database." });
         if(password !== confirmPassword) return res.status(400).json({ messsage: "Passwords don't match." });
         const hashedPassword = await bcrypt.hash(password, 12);
         const result = await Users.create({ name: `${firstName} ${lastName}`, phone_number: phoneNumber, email, password: hashedPassword, position, id_supervisor: supervisor});
-        const token = jwt.sign({ email: result.email, id: result._id }, 'test', { expiresIn: "1h" });
-        res.status(200).json({ result: result, token });
+        res.status(200).json({ message: 'User created successfully.', newUser: result});
     } catch(error) {
         res.status(500).json({ message: 'Something went wrong.' });
     }
