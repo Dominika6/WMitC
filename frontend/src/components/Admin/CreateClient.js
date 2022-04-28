@@ -68,7 +68,7 @@ const CreateClient = () => {
                 </InputGroup><br/>
 
                 <Typography>{'Supervisor'}</Typography>
-                <Form.Control as="select" name="supervisor" defaultValue={managers[0]?.email} onChange={handleChange}>
+                <Form.Control as="select" name="supervisor" onChange={handleChange}>
                     {managers.map(user =>(
                             <option key={user?.email} value={user?.email}>{user?.name}</option>
                         )

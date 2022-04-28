@@ -32,26 +32,39 @@ const CreateUser = () => {
     const [currentId] = useState(0);
     const dispatch = useDispatch();
     const { users, isLoading } = useSelector((state) => state.users);
-    const allUsers = [];
+    const managers = [];
+    const admins = [];
 
     useEffect(() => {
         dispatch(getAllUsers())
     }, [currentId, dispatch]);
 
-    isLoading === false ?
-        users.map((user) => (
-            allUsers.push(user)
-        ))
-        : (console.log())
+    if(isLoading === false) {
+        users.map((user) => {
+            if(user?.position === 'manager'){
+                managers.push(user)
+            }else if(user?.position === 'admin'){
+                admins.push(user)
+            }
+        })
+    }
+
 
     const handleShowPassword = () => setShowPassword((prevShowPassword) => ! prevShowPassword);
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log('formData z handleSubmit: ',formData);
         if(formData.position === 'admin'){
             formData.supervisor = 'none';
         }
+        if((formData.position === 'manager') && (formData.supervisor === '')){
+            formData.supervisor = admins[0].email;
+        }
+        if((formData.position === 'user') && (formData.supervisor === '')){
+            formData.supervisor = managers[0].email;
+        }
+
+        console.log('formData z handleSubmit: ',formData);
         dispatch(createUser(formData));
     };
 
@@ -103,21 +116,17 @@ const CreateUser = () => {
                 <>
                     <Typography>{'Supervisor'}</Typography>
                     <Form.Control as="select" name="supervisor" onChange={handleChange}>
-                        {allUsers.map(user => {
-                            if (user?.position === 'admin') {
-                                return <option key={user?.email} value={user?.email} >{user?.name}</option>
-                            }
-                        } )}
+                        {admins.map(user => (
+                            <option key={user?.email} value={user?.email} >{user?.name}</option>
+                        ))}
                     </Form.Control><br/>
                 </> : (formData?.position === 'user') ?
                 <>
                     <Typography>{'Supervisor'}</Typography>
                     <Form.Control as="select" name="supervisor" onChange={handleChange}>
-                        {allUsers.map(user => {
-                            if (user?.position === 'manager') {
-                                return <option key={user?.email} value={user?.email} >{user?.name}</option>
-                            }
-                        } )}
+                        {managers.map(user => (
+                            <option key={user?.email} value={user?.email} >{user?.name}</option>
+                        ))}
                     </Form.Control><br/>
                 </> : (formData?.position === 'admin') ? <></>:<></>
                 }
