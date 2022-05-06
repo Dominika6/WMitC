@@ -46,6 +46,7 @@ const CreateUser = () => {
             }else if(user?.position === 'admin'){
                 admins.push(user)
             }
+            return (managers, admins)
         })
     }
 

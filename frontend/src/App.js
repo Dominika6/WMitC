@@ -18,6 +18,7 @@ import UsersHome from "./components/Admin/UsersHome";
 import TasksHomeCoordinator from "./components/Coordinator/TasksHomeCoordinator";
 import TaskDetails from "./components/TaskDetails/TaskDetails";
 import About from "./About";
+import MyTeamCoordinator from "./components/Coordinator/MyTeamCoordinator";
 
 
 const App = () => {
@@ -31,7 +32,6 @@ const App = () => {
                 <br/><br/><br/><br/><br/>
                 <Switch>
                     <Route path="/" exact component={About} />
-                    {/*<Route path="/" exact component={() => <Redirect to="/" />} />*/}
                     <Route path="/task/:id" exact component={TaskDetails} />
                     <Route path="/login" exact component={Login} />
                     <Route path="/myAccount" exact component={MyAccount} />
@@ -44,6 +44,7 @@ const App = () => {
                     <Route path="/createTask" exact component={CreateTask} />
                     <Route path="/getMyTasks" exact component={WorkerHome} />
                     <Route path="/getMyTeam" exact component={TeamHome} />
+                    <Route path="/getMyTeamC" exact component={MyTeamCoordinator} />
                     <Route path="/getMyClients" exact component={ClientsHomeCoordinator} />
                     <Route path="/getAllUsers" exact component={UsersHome} />
                     <Route path="/getAllClients" exact component={ClientsHomeAdmin} />

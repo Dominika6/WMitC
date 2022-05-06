@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Typography, Container } from "@material-ui/core";
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from "react-router-dom";
-import {Button, Form, FormControl, InputGroup} from "react-bootstrap";
+import { Button, Form, FormControl, InputGroup } from "react-bootstrap";
 
 import { createTask } from "../../actions/tasks";
-import { getAllUsers } from "../../actions/users";
-import { getAllProjects } from "../../actions/projects";
+import { getTeamBySearch } from "../../actions/users";
+import { getMyClientsProjects } from "../../actions/projects";
 
 
 const initialState = {
@@ -15,11 +15,9 @@ const initialState = {
     name: '',
     description: '',
     task_comments: [],
-    deadline: new Date(),
+    deadline: '',
     implementation_status: 'new'
 }
-
-// TODO informacja, że task został utworzony
 
 const CreateTask = () => {
     const [loggedUser] = useState(JSON.parse(localStorage.getItem("profile")));
@@ -27,35 +25,26 @@ const CreateTask = () => {
     const [formData, setFormData] = useState(initialState);
     const dispatch = useDispatch();
     const history = useHistory();
-    const myTeam = [];
-    const myClientsProjects = [];
     const { users, isLoading } = useSelector((state) => state.users);
     const { projects, isProjectLoading } = useSelector((state) => state.projects);
 
-    useEffect(() => {
-        dispatch(getAllUsers()).then(dispatch(getAllProjects()))
-    }, [currentId, dispatch]);
+    useEffect(()=>{
+        dispatch(getMyClientsProjects(loggedUser.result.email));
+    }, [currentId, dispatch, loggedUser.result.email]);
 
-    isLoading === false ?
-        users.map((user) => ( user?.id_supervisor === loggedUser?.result?.email ) ? (
-            myTeam.push(user)
-        ) : (<></>))
-        : (console.log())
-
-    const isMyClient = true;
-    //TODO sprawdzanie czy dany klient jest przypisany do danego koordynatora
-
-    isProjectLoading === false ?
-        projects.map((project) => ( isMyClient ) ? (
-            myClientsProjects.push(project)
-        ) : (<></>))
-        : (console.log())
-
-    //todo - coś zamiast powyższego console.loga
+    useEffect(()=>{
+        dispatch(getTeamBySearch(loggedUser.result.email))
+    }, [currentId, dispatch, loggedUser.result.email]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(formData, history);
+        if(formData.project === ""){
+            formData.project = projects[0]?.project_name;
+        }
+        if(formData.id_user === ""){
+            formData.id_user = users[0]?.email;
+        }
+        console.log(formData)
         dispatch(createTask(formData, history));
     };
 
@@ -63,17 +52,18 @@ const CreateTask = () => {
         setFormData({...formData, [e.target.name]: e.target.value});
     };
 
+    if(!users.length && !isLoading && !isProjectLoading) return 'Wait';
+
     return(
         <Container component="main" maxWidth="xs">
             <br/><br/>
             <Typography variant="h4">{ ' Create Task ' }</Typography><br/>
             <form onSubmit={handleSubmit}>
-                {/* TODO wybranie deadlinu */}
 
                 <Typography variant="h6">{ 'Project' }</Typography>
                 <Form.Group className="mb-3" controlId="formBasicSelect">
                     <Form.Control as="select" name="project" onChange={handleChange}>
-                        { myClientsProjects.map((project) => ( <option value={project?.project_name} key={project?.project_name} >{project?.project_name} ({project?.id_client})</option> )) }
+                        { projects?.map((project) => ( <option value={project?.project_name} key={project?.project_name} >{project?.project_name} ({project?.id_client})</option> )) }
                     </Form.Control>
                 </Form.Group><br/>
 
@@ -90,9 +80,16 @@ const CreateTask = () => {
                 <Typography variant="h6">{ 'User' }</Typography>
                 <Form.Group className="mb-3" controlId="formBasicSelect">
                     <Form.Control as="select" name="id_user" onChange={handleChange}>
-                        { myTeam.map((user) => ( <option value={user?.email} key={user?.email} >{user?.name}</option> )) }
+                        { users?.map((user) => ( <option value={user?.email} key={user?.email} >{user?.name}</option> )) }
                     </Form.Control>
                 </Form.Group><br/>
+
+                <Typography variant="h6">{ 'Deadline' }</Typography>
+                <InputGroup>
+                    <Form.Group controlId="dob">
+                        <Form.Control type="date" name="deadline" onChange={handleChange} />
+                    </Form.Group><br/>
+                </InputGroup><br/>
 
                 <div className="d-grid gap-2">
                     <Button type="submit" variant="success" >Create Task</Button>

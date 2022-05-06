@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 import { Button, Form, FormControl, InputGroup } from "react-bootstrap";
 
 import { createProject } from "../../actions/projects";
-import { getAllClients } from "../../actions/clients";
+import { getClientsBySearch } from "../../actions/clients";
 
 
 const initialState = {
@@ -14,32 +14,24 @@ const initialState = {
     description: ''
 }
 
-// TODO informacja, że project został utworzony, bądź mamy jakiś błąd, po utworzeniu projektu wyczyszczenie formularza
-
 const CreateProject = () => {
+    const [loggedUser] = useState(JSON.parse(localStorage.getItem('profile')));
     const [formData, setFormData] = useState(initialState);
     const [currentId] = useState(0);
     const dispatch = useDispatch();
     const history = useHistory();
-    const myClients = [];
-    const { clients, isLoading } = useSelector((state) => (state.clients))
-    //todo - obsługa isMyClient
-    const isMyClient = true;
+    const { clients } = useSelector((state) => (state.clients))
 
     useEffect(() => {
-        dispatch(getAllClients());
-    }, [currentId, dispatch]);
-
-    isLoading === false ?
-        clients.map((client) => (isMyClient) ? (
-            myClients.push(client)
-        ):(<></>)):(console.log())
+        dispatch(getClientsBySearch(loggedUser.result.email));
+    }, [currentId, dispatch, loggedUser.result.email]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(formData);
+        if(formData.client === ""){
+            formData.client = clients[0]?.email;
+        }
         dispatch(createProject(formData, history));
-
     };
 
     const handleChange = (e) => {
@@ -54,7 +46,7 @@ const CreateProject = () => {
                 <Typography variant="h6">{'Client'}</Typography>
                 <Form.Group >
                     <FormControl as="select" name="client" onChange={handleChange}>
-                        {myClients.map((client) => (<option value={client?.email} key={client?.email}>{client?.name} ({client?.email})</option> ))}
+                        {clients?.map((client) => (<option value={client?.email} key={client?.email}>{client?.name} ({client?.email})</option> ))}
                     </FormControl>
                 </Form.Group><br/>
 

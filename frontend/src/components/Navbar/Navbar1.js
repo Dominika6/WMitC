@@ -55,10 +55,7 @@ const Navbar1 = () => {
                             <Link to={"/createTask"} className="nav-link">Create Task</Link> &nbsp;
                             <Link to={"/getMyClients"} className="nav-link">Clients</Link> &nbsp;
                             <Link to={"/getAllTasksC"} className="nav-link">All Tasks</Link> &nbsp;
-                            {/* TODO getMyTeam */}
-                            {/* TODO getMyProjects */}
-                            {/* TODO getProjectTasks */}
-
+                            <Link to={"/getMyTeamC"} className="nav-link">My Team</Link>&nbsp;
                         </>
                     ):(user && user?.result.position === 'user') ? (
                         <>

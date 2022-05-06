@@ -15,7 +15,6 @@ const initialState = {
     email: ''
 }
 
-
 const CreateClient = () => {
     const [formData, setFormData] = useState(initialState);
     const dispatch = useDispatch();
@@ -33,6 +32,7 @@ const CreateClient = () => {
             if(user?.position === 'manager'){
                 managers.push(user)
             }
+            return managers
         })
         initialState.supervisor = managers[0]?.email
     }

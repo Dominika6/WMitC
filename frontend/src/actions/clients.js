@@ -13,12 +13,25 @@ export const createClient = (formData, history) => async (dispatch) => {
     }
 }
 
+// get my clients ( od Supervisora )
 export const getClientsBySearch = (email) => async (dispatch) => {
     try {
         dispatch({ type: START_LOADING });
         const { data: { data } } = await api.fetchClientsBySearch(email);
         dispatch({ type: FETCH_ALL, payload: data });
         dispatch({ type: END_LOADING });
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export const getClientByTheirEmail = (email) => async (dispatch) => {
+    try {
+        dispatch({ type: START_LOADING });
+        const { data: { data } } = await api.getClientByTheirEmail(email);
+        dispatch({ type: FETCH_ALL, payload: data });
+        dispatch({ type: END_LOADING });
+        console.log('actions/clients', data)
     } catch (error) {
         console.log(error);
     }

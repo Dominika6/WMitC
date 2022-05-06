@@ -3,6 +3,8 @@ import { CREATE_TASK, DELETE, END_LOADING, FETCH_ALL, FETCH_BY_SEARCH, FETCH_TAS
 export default (state = { isLoading: true, tasks: [] }, action) => {
     switch (action.type){
         case CREATE_TASK:
+            alert(`${action?.data?.message}`);
+            window.location.reload();
             return { ...state, tasks: [...state.tasks, action.payload] };
         case FETCH_BY_SEARCH:
             return { ...state, tasks: action.payload };

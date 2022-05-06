@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { Paper, Typography, CircularProgress, Button } from "@material-ui/core";
 import { Dropdown } from 'react-bootstrap';
 
-import CommentSection from "./CommentSection";
+import Comments from "./Comments";
 import { getTask, updateTask } from '../../actions/tasks';
 
 
@@ -18,21 +18,22 @@ const TaskDetails = () => {
         dispatch(getTask(id));
     }, [id]) // eslint-disable-line react-hooks/exhaustive-deps
 
-    if(!task) return null;
 
     if(isLoading) {
         return <CircularProgress size="7em" />
     }
 
+    if(!task) return null;
+
     return(
         <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
             <div>
-                <Typography variant="h4" >{task.id_project}</Typography><br/>
+                <Typography variant="h4">{task.id_project}</Typography><br/>
                 <Typography variant="h5">{task.task_name}</Typography><br/>
                 <Typography variant="h6">{task.task_description}</Typography><br/>
+                <Typography variant="h6"><b>Assigned: </b>{task.id_user}</Typography>
                 <Typography variant="h6"><b>Deadline:</b> {task.deadline.split('T')[0]}</Typography>
                 <Typography variant="h6"><b>Status:</b> {task.implementation_status}</Typography>
-                {/* TODO odświeżanie strony po zmianie statusu zadania */}
                 {user.result.position === 'user' ? (
                    <>
                        <br/><Dropdown.Divider/><br/>
@@ -61,9 +62,8 @@ const TaskDetails = () => {
                        ):(<>There is a problem with reading the status.</>)}
                    </>
                 ) : (<></>)}
-                <br/><br/><Dropdown.Divider/><br/><br/>
-
-                <CommentSection task={task}/>
+                <br/><Dropdown.Divider/><br/>
+                <Comments task={task}/>
             </div>
         </Paper>
     );

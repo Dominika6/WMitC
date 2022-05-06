@@ -40,8 +40,8 @@ const MyAccount = () => {
                 <br/><Dropdown.Divider/><br/>
                 <b>Email:</b> {user?.result?.email} <br/>
                 <b>Phone:</b> {user?.result?.phone_number} <br/>
-                {(user?.result?.position !== 'admin') ? (<><b>Supervisor:</b> {user?.result?.id_supervisor}</>) : (``)}
-                <br/><br/><Dropdown.Divider/><br/>
+                {(user?.result?.position !== 'admin') ? (<><b>Supervisor:</b> {user?.result?.id_supervisor} <br/></>) : (``)}
+                <br/><Dropdown.Divider/><br/>
 
                 <Typography variant="h6">{'Edit password: '}</Typography><br/>
                     <form autoComplete="off" onSubmit={handleSubmit}>

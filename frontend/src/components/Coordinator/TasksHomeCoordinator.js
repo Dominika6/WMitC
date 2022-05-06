@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Grow, Grid } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 
-import { getTeamTasksBySearch } from '../../actions/tasks';
+import { getProjectTasksByCoordinatorEmail } from '../../actions/tasks';
 import TasksGetCoordinator from "./TasksGetCoordinator";
 
 
@@ -13,15 +12,11 @@ const TasksHomeCoordinator = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(getTeamTasksBySearch(user?.result?.email));
-    }, [currentId, dispatch]); // eslint-disable-line react-hooks/exhaustive-deps
+        dispatch(getProjectTasksByCoordinatorEmail(user?.result?.email));
+    }, [currentId, dispatch, user?.result?.email]); // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
-        <Grow in>
-            <Grid container justifyContent="space-between" alignItems="stretch" spacing={3}>
-                <TasksGetCoordinator setCurrentId={setCurrentId} />
-            </Grid>
-        </Grow>
+        <TasksGetCoordinator key='test' setCurrentId={setCurrentId} />
     );
 };
 

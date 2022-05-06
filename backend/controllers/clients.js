@@ -27,10 +27,24 @@ export const getAllClients = async (req, res) => {
     }
 }
 
+//get My Clients ( od Supervisora )
 export const getClientsBySearch = async (req, res) => {
     const { email } = req.params;
     try {
         const clients = await Clients.find({ id_supervisor: email });
+        // console.log(clients)
+        res.json({ data: clients });
+    } catch(error) {
+        res.status(404).json({ message: error.message });
+    }
+}
+
+// clients data
+export const getClientByTheirEmail = async (req, res) => {
+    const { email } = req.params;
+    try {
+        const clients = await Clients.find({ email: email });
+        // console.log(clients)
         res.json({ data: clients });
     } catch(error) {
         res.status(404).json({ message: error.message });

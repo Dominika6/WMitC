@@ -14,20 +14,30 @@ const TaskCoordinator = ({ task }) => {
     const history = useHistory();
 
     const openTask = (e) => {
+        e.preventDefault();
         history.push(`/task/${task._id}`);
     };
 
+    const clickDeleteTask = (e) => {
+        e.preventDefault();
+        if(window.confirm('You cannot undo this operation. Are you sure you want to delete this task?')){
+            dispatch(deleteTask(task._id));
+            window.location.reload();
+        } else {
+            console.log('Task has not been deleted.');
+        }
+    };
+
     return (
-        <Card raised elevation={6}>
-            <Container>
+        <>
+            <br/>
+            <Card raised elevation={6}>
+                <Container>
                     <ButtonBase onClick={openTask} component="span" name="test" >
                         <div>
-                            <Typography variant="h5">{task.id_project}</Typography>
-                            {/*TODO: wyciąganie z bazy też danych o projekcie, później pogrupować taski ze względu na projekty*/}
-                            <Typography><b>Title:</b> {task.task_name}</Typography>
-                            <Typography><b>Deadline:</b> {(task.deadline) ? task?.deadline.split('T')[0] : <></>}</Typography>
-                            {/*<Typography><b>Deadline:</b> {task?.deadline.split('T')[0]}</Typography>*/}
-                            <Typography><b>User:</b> {task.id_user}</Typography>
+                            <br/><Typography><b>{task.task_name}</b></Typography><br/>
+                            <Typography>{task.id_user}</Typography>
+                            <Typography>{(task.deadline) ? task?.deadline.split('T')[0] : <></>}</Typography>
                             <Typography><b>Status:</b> {task.implementation_status}</Typography>
                             {task.implementation_status === 'done' ? (
                                 <ProgressBar animated now={100} />
@@ -36,16 +46,17 @@ const TaskCoordinator = ({ task }) => {
                             ):(<ProgressBar animated now={1} />))}
                         </div>
                     </ButtonBase>
-                <CardActions>
-                    {(user && user?.result.position === 'manager') ? (
-                        <Button size="small" color="secondary" onClick={() => dispatch(deleteTask(task._id))}>
-                            {/*TODO dorobić upewnienie się czy chcesz na pewno usunąć, ta operacja jest nieodwracalna*/}
-                            <DeleteIcon fontSize="small" /> &nbsp; Delete
-                        </Button>
-                    ):<></>}
-                </CardActions>
-            </Container>
-        </Card>
+
+                    <CardActions>
+                        {(user && user?.result.position === 'manager') ? (
+                            <Button size="small" color="secondary" onClick={clickDeleteTask}>
+                                <DeleteIcon fontSize="small" /> &nbsp; Delete
+                            </Button>
+                        ):<></>}
+                    </CardActions>
+                </Container>
+            </Card>
+        </>
     );
 };
 

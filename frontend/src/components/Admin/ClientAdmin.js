@@ -12,6 +12,7 @@ const ClientAdmin = ({ client }) => {
                     <Typography variant="h6"><b>Name:</b> {client.name}</Typography>
                     <Typography variant="h6"><b>Phone:</b> {client.phone_number}</Typography>
                     <Typography variant="h6"><b>Email:</b> {client.email}</Typography>
+                    <Typography variant="h6"><b>Supervisor:</b> {client.id_supervisor}</Typography>
                 </div>
             </Card.Body>
         </Card>

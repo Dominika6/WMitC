@@ -1,27 +1,46 @@
-import React from "react";
-import { useSelector } from "react-redux";
-import { Grid, CircularProgress } from "@material-ui/core";
+import React, {useEffect, useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {Grid, CircularProgress, Divider} from "@material-ui/core";
+import { Container } from "react-bootstrap";
 
 import TaskCoordinator from "./TaskCoordinator";
-import { Container } from "react-bootstrap";
+import {getMyClientsProjects} from "../../actions/projects";
 
 
 const TasksGetCoordinator = ({ setCurrentId }) => {
 
     const { tasks, isLoading } = useSelector((state) => state.tasks);
-    //todo filtrowanie ze względu na status wykonania/ projekty
+    const [loggedUser] = useState(JSON.parse(localStorage.getItem('profile')));
+    const { projects } = useSelector((state) => state.projects);
+    const dispatch = useDispatch();
+
+    useEffect(()=>{
+        dispatch(getMyClientsProjects(loggedUser.result.email));
+    }, [dispatch, loggedUser.result.email]);
+
     if (!tasks.length && !isLoading) return 'Your team has no tasks!';
+
     return(
         isLoading ? <CircularProgress/> : (
             <Container>
-                <Grid container alignItems="stretch" spacing={3}>
-                    {
-                        tasks.map((task) => (
-                            <Grid key={task._id} item xs={12} sm={12} md={6} lg={3}>
-                                <TaskCoordinator task={task} setCurrentId={setCurrentId} />
+                {tasks.map((task_group, index) => (
+                    <div key={index}>
+                        <br/>
+                        {task_group[0]?.id_project ?
+                            <Grid>
+                                <h3>{task_group[0]?.id_project}</h3>
+                            </Grid> :
+                            <Grid>
+                                <h3>{projects[index].project_name}</h3>
+                                <p>There are no tasks defined in this project.</p>
                             </Grid>
-                        ))}
-                </Grid>
+                        }
+                        {task_group.map((task, index) => (
+                            <TaskCoordinator key={index} task={task} setCurrentId={setCurrentId}/>
+                        ))}<br/>
+                        <Divider/>
+                    </div>
+                ))}
             </Container>
         )
     )

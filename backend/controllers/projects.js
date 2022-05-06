@@ -14,7 +14,7 @@ export const createProject = async (req, res) => {
         const existingClient = await Clients.findOne({email: client});
         if(!existingClient) return res.status(400).json({ messsage: "Client do not exist." });
         const result = await Projects.create({ id_client: client, project_name: name, project_description: description});
-        res.status(200).json({ result: result });
+        res.status(200).json({ result: result, message: 'Project created successfully' });
     } catch(error) {
         res.status(500).json({ message: 'Something went wrong.' });
     }
@@ -33,6 +33,25 @@ export const getAllProjects = async (req, res) => {
         const allProjects = await Projects.find();
         res.status(200).json(allProjects);
     } catch (error) {
+        res.status(404).json({ message: error.message });
+    }
+}
+
+export const getMyClientsProjects = async (req, res) => {
+    const { email } = req.params;
+    try {
+        const myClients = await Clients.find({id_supervisor: email});
+        const allProjects = await Projects.find();
+        const myClientsProjects = [];
+        for (let i = 0; i < myClients.length; i++){
+            for (let j = 0; j < allProjects.length; j++){
+                if (myClients[i].email === allProjects[j].id_client){
+                    myClientsProjects.push(allProjects[j]);
+                }
+            }
+        }
+        res.status(200).json({ data: myClientsProjects });
+    } catch(error) {
         res.status(404).json({ message: error.message });
     }
 }

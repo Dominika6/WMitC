@@ -1,13 +1,14 @@
 import express from "express";
 
 import auth from '../middleware/auth.js'
-import { getClientsBySearch, getAllClients, createClient } from "../controllers/clients.js";
+import {getClientsBySearch, getAllClients, createClient, getClientByTheirEmail} from "../controllers/clients.js";
 
 
 const router = express.Router();
 
 router.post('/createClient', auth, createClient);
 router.get('/search/:email', getClientsBySearch);
+router.get('/search/client/:email', getClientByTheirEmail);
 router.get('/clients', getAllClients);
 
 

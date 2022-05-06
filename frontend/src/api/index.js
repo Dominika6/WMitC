@@ -20,12 +20,14 @@ export const updatePassword = (id, passwordData) => API.patch(`/user/passwordUpd
 
 export const createClient = (newClient) => API.post('/client/createClient', newClient);
 export const fetchClientsBySearch = (email) => API.get(`/client/search/${email}`);
+export const getClientByTheirEmail = (email) => API.get(`/client/search/client/${email}`);
 export const fetchClients = () => API.get('/client/clients');
 
 
 export const createProject = (newProject) => API.post('/project/createProject', newProject);
 export const deleteProject = (id) => API.delete(`/project/delete/${id}`);
 export const fetchProjects = () => API.get('/project/projects');
+export const fetchMyClientsProjects = (email) => API.get(`/project/getMyClientsProjects/${email}`);
 
 
 export const createTask = (newTask) => API.post('/task/createTask', newTask);
@@ -35,4 +37,5 @@ export const commentTask = (value, id) => API.post(`/task/${id}/commentTask`, { 
 export const fetchTask = (id) => API.get(`/task/${id}`);
 export const fetchTasksBySearch = (email) => API.get(`/task/search/${email}`);
 export const getTeamTasksBySearch = (email) => API.get(`/task/search_team/${email}`);
+export const getProjectTasksByCoordinatorEmail = (email) => API.get(`/task/search_project_tasks/${email}`);
 

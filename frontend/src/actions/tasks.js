@@ -7,7 +7,7 @@ export const getTask = (id) => async (dispatch) => {
         dispatch({ type: START_LOADING });
         const { data } = await api.fetchTask(id);
         dispatch({ type: FETCH_TASK, payload: data });
-        dispatch({ type: END_LOADING })
+        dispatch({ type: END_LOADING });
     } catch (error) {
         console.log(error);
     }
@@ -24,9 +24,10 @@ export const deleteTask = (id) => async (dispatch) => {
 
 export const updateTask = (id, status) => async (dispatch) => {
     try {
-        const newStatus = {implementation_status : status}
+        const newStatus = {implementation_status : status};
         const { data } = await api.updateTask(id, newStatus);
-        dispatch({type: UPDATE_TASK, payload: data})
+        dispatch({type: UPDATE_TASK, payload: data});
+        window.location.reload();
     } catch(error) {
         console.log(error);
     }
@@ -54,6 +55,17 @@ export const getTasksBySearch = (email) => async (dispatch) => {
     }
 }
 
+export const getProjectTasksByCoordinatorEmail = (email) => async (dispatch) => {
+    try{
+        dispatch({ type: START_LOADING });
+        const { data: { data } } = await api.getProjectTasksByCoordinatorEmail(email);
+        dispatch({ type: FETCH_BY_SEARCH, payload: data});
+        dispatch({ type:END_LOADING });
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 export const getTeamTasksBySearch = (email) => async (dispatch) => {
     try {
         dispatch({ type: START_LOADING });
@@ -68,21 +80,9 @@ export const getTeamTasksBySearch = (email) => async (dispatch) => {
 export const commentTask = (value, id) => async (dispatch) => {
     try{
         const { data } = await api.commentTask(value, id);
-
-        dispatch({ type: COMMENT, payload: data })
+        dispatch({ type: COMMENT, payload: data });
         return data.comments;
     } catch(error) {
         console.log(error);
     }
 }
-
-// export const getAllTasks = () => async (dispatch) => {
-//     try {
-//         dispatch({ type: START_LOADING });
-//         const { data } = await api.fetchTasks();
-//         dispatch({ type: FETCH_ALL, payload: data });
-//         dispatch({ type: END_LOADING })
-//     } catch (error) {
-//         console.log(error);
-//     }
-// }

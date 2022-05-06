@@ -42,6 +42,7 @@ export const getTeamBySearch = async (req, res) => {
     const { email } = req.params;
     try {
         const team = await Users.find({ id_supervisor: email });
+        // console.log('my team: ', team);
         res.json({ data: team });
     } catch(error) {
         res.status(404).json({ message: error.message });
