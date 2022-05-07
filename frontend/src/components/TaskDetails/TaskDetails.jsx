@@ -16,7 +16,7 @@ const TaskDetails = () => {
 
     useEffect(() => {
         dispatch(getTask(id));
-    }, [id]) // eslint-disable-line react-hooks/exhaustive-deps
+    }, [id, dispatch]) // eslint-disable-line react-hooks/exhaustive-deps
 
 
     if(isLoading) {

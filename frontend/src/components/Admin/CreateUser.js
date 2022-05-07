@@ -49,7 +49,7 @@ const CreateUser = () => {
             return (managers, admins)
         })
     }
-
+    //todo zmienić powyższe na poprawne - hooks
 
     const handleShowPassword = () => setShowPassword((prevShowPassword) => ! prevShowPassword);
 

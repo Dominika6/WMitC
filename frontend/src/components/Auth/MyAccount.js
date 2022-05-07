@@ -13,16 +13,16 @@ const initialState = { email: '', password:'', newPassword:'', newPasswordConfir
 const MyAccount = () => {
     const user = JSON.parse(localStorage.getItem('profile'));
     const dispatch = useDispatch();
-    const [passwordData, setPasswordData] = useState(initialState)
+    const [passwordData, setPasswordData] = useState(initialState);
     const [showPassword, setShowPassword] = useState(false);
 
     const handleShowPassword = () => setShowPassword((prevShowPassword) => ! prevShowPassword);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
         if((passwordData.newPassword === passwordData.newPasswordConfirmation) && (passwordData.newPassword !== '')){
             passwordData.email = user?.result.email;
+            console.log('MyAccount: ', passwordData);
             dispatch(updatePassword(user?.result?._id, passwordData));
         } else {
             alert('"Password" and "Password Confirmation" are different! ')

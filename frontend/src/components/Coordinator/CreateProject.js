@@ -20,7 +20,7 @@ const CreateProject = () => {
     const [currentId] = useState(0);
     const dispatch = useDispatch();
     const history = useHistory();
-    const { clients } = useSelector((state) => (state.clients))
+    const { clients, isLoading } = useSelector((state) => (state.clients))
 
     useEffect(() => {
         dispatch(getClientsBySearch(loggedUser.result.email));
@@ -37,6 +37,8 @@ const CreateProject = () => {
     const handleChange = (e) => {
         setFormData({...formData, [e.target.name]: e.target.value});
     };
+
+    if(!clients.length && !isLoading) return 'You have no clients assigned.';
 
     return(
         <Container component="main" maxWidth="xs"><br/><br/>

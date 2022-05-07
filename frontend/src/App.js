@@ -14,11 +14,12 @@ import WorkerHome from "./components/Worker/WorkerHome";
 import ClientsHomeCoordinator from "./components/Coordinator/ClientsHomeCoordinator";
 import ClientsHomeAdmin from "./components/Admin/ClientsHomeAdmin";
 import TeamHome from "./components/Worker/TeamHome";
-import UsersHome from "./components/Admin/UsersHome";
 import TasksHomeCoordinator from "./components/Coordinator/TasksHomeCoordinator";
 import TaskDetails from "./components/TaskDetails/TaskDetails";
+import UserDetailsUpdate from "./components/Admin/UserDetailsUpdate";
 import About from "./About";
 import MyTeamCoordinator from "./components/Coordinator/MyTeamCoordinator";
+import UsersGet from "./components/Admin/UsersGet";
 
 
 const App = () => {
@@ -38,9 +39,10 @@ const App = () => {
                     <Route path="/myAccount" exact component={() => (loggedUser ? <MyAccount/> : <Redirect to='/' />)} />
 
                     <Route path="/createUser" exact component={() => (loggedUser?.result?.position === 'admin' ? <CreateUser/> : <Redirect to='/' />)} />
-                    <Route path="/getAllUsers" exact component={() => (loggedUser?.result?.position === 'admin' ? <UsersHome/> : <Redirect to='/' />)} />
+                    <Route path="/getAllUsers" exact component={() => (loggedUser?.result?.position === 'admin' ? <UsersGet/> : <Redirect to='/' />)} />
                     <Route path="/createClient" exact component={() => (loggedUser?.result?.position === 'admin' ? <CreateClient/> : <Redirect to='/' />)} />
                     <Route path="/getAllClients" exact component={() => (loggedUser?.result?.position === 'admin' ? <ClientsHomeAdmin/> : <Redirect to='/' />)} />
+                    <Route path="/user/:id" exact component={() => (loggedUser?.result?.position === 'admin' ? <UserDetailsUpdate/> : <Redirect to='/' /> )} />
 
                     <Route path="/createTask" exact component={() => (loggedUser?.result?.position === 'manager' ? <CreateTask/> : <Redirect to='/' />)} />
                     <Route path="/getMyTeamC" exact component={() => (loggedUser?.result?.position === 'manager' ? <MyTeamCoordinator/> : <Redirect to='/' />)} />

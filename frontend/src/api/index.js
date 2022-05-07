@@ -15,7 +15,14 @@ export const login = (formData) => API.post('/user/login', formData);
 export const createUser = (formData) => API.post('/user/createUser', formData);
 export const fetchTeamBySearch = (email) => API.get(`/user/search/${email}`);
 export const fetchUsers = () => API.get('/user/users');
+export const fetchManagers = () => API.get('/user/managers');
 export const updatePassword = (id, passwordData) => API.patch(`/user/passwordUpdate/${id}`, passwordData);
+export const updateUserEmail = (userDatas) => API.patch(`/user/emailUpdate/${userDatas.id}/${userDatas.email}`);
+export const updateUserName = (userDatas) => API.patch(`/user/nameUpdate/${userDatas.id}/${userDatas.name}`);
+export const updateUserPhone = (userDatas) => API.patch(`/user/phoneUpdate/${userDatas.id}/${userDatas.phone_number}`);
+export const updateUserCoordinator = (userDatas) => API.patch(`/user/managerUpdate/${userDatas.id}/${userDatas.id_supervisor}`);
+export const fetchUser = (id) => API.get(`/user/getUser/${id}`);
+
 
 
 export const createClient = (newClient) => API.post('/client/createClient', newClient);

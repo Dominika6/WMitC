@@ -24,5 +24,8 @@ export const CREATE_PROJECT = 'CREATE_PROJECT';
 export const CREATE_TASK = 'CREATE_TASK';
 export const UPDATE_TASK = 'UPDATE_TASK';
 
-export const FETCH_CLIENTS = 'FETCH_CLIENTS';
 export const FETCH_TEAM = 'FETCH_TEAM';
+export const FETCH_USER = 'FETCH_USER';
+export const FETCH_MANAGERS = 'FETCH_MANAGERS';
+
+export const UPDATE_USER = 'UPDATE_USER';

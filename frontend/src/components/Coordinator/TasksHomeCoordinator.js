@@ -8,7 +8,6 @@ import TasksGetCoordinator from "./TasksGetCoordinator";
 const TasksHomeCoordinator = () => {
     const [currentId, setCurrentId] = useState(0);
     const user = JSON.parse(localStorage.getItem('profile'));
-
     const dispatch = useDispatch();
 
     useEffect(() => {

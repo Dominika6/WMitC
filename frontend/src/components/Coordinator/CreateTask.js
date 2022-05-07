@@ -52,7 +52,7 @@ const CreateTask = () => {
         setFormData({...formData, [e.target.name]: e.target.value});
     };
 
-    if(!users.length && !isLoading && !isProjectLoading) return 'Wait';
+    if(!users.length && !isLoading && !isProjectLoading) return 'You must have a team and create a project to continue.';
 
     return(
         <Container component="main" maxWidth="xs">

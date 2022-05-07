@@ -18,7 +18,6 @@ const About = () => {
             <br/>
         </>
     )
-
 }
 
 export default About

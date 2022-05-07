@@ -17,7 +17,7 @@ export const deleteTask = (id) => async (dispatch) => {
     try {
         await api.deleteTask(id);
         dispatch({ type: DELETE, payload: id });
-    } catch(error) {
+    } catch (error) {
         console.log(error);
     }
 }
@@ -28,7 +28,7 @@ export const updateTask = (id, status) => async (dispatch) => {
         const { data } = await api.updateTask(id, newStatus);
         dispatch({type: UPDATE_TASK, payload: data});
         window.location.reload();
-    } catch(error) {
+    } catch (error) {
         console.log(error);
     }
 }
@@ -82,7 +82,7 @@ export const commentTask = (value, id) => async (dispatch) => {
         const { data } = await api.commentTask(value, id);
         dispatch({ type: COMMENT, payload: data });
         return data.comments;
-    } catch(error) {
+    } catch (error) {
         console.log(error);
     }
 }
