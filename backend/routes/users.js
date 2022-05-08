@@ -7,6 +7,7 @@ import {
     getTeamBySearch,
     getManagers,
     updatePassword,
+    resetPassword,
     getUser,
     updateUserEmail,
     updateUserName,
@@ -24,6 +25,7 @@ router.get('/managers', getManagers);
 router.post('/login', login);
 router.post('/createUser', createUser);
 router.patch('/passwordUpdate/:id', updatePassword);
+router.patch('/passwordReset/:id/:tmpPassword', resetPassword);
 router.patch('/emailUpdate/:id/:email', updateUserEmail);
 router.patch('/nameUpdate/:id/:name', updateUserName);
 router.patch('/phoneUpdate/:id/:phone_number', updateUserPhone);

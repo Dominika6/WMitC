@@ -84,6 +84,21 @@ export const updatePassword = async (req, res) => {
     }
 }
 
+export const resetPassword = async (req, res) => {
+    const { id, tmpPassword } = req.params;
+
+    try {
+        const existingUser = await Users.findOne({_id: id});
+        if(!existingUser) return res.status(404).json({ messsage: "User doesn't exist." });
+        if(!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send('No user with that id.');
+        const hashedPassword = await bcrypt.hash(tmpPassword, 12);
+        await Users.findByIdAndUpdate(id, { password: hashedPassword }, { new: true });
+        res.status(200).json({ result: existingUser });
+    } catch(error) {
+        res.status(500).json({ message: 'Something went wrong.' });
+    }
+}
+
 export const updateUserEmail = async (req, res) => {
     const { id, email } = req.params;
     try {

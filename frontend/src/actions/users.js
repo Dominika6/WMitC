@@ -61,6 +61,16 @@ export const updatePassword = (id, passwordData) => async (dispatch) => {
     }
 }
 
+export const resetPassword = (userDatas) => async (dispatch) => {
+    try {
+        console.log(userDatas);
+        const { data } = await api.resetPassword(userDatas);
+        dispatch({ type: UPDATE_PASSWORD, payload: data });
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 export const getUser = (id) => async (dispatch) => {
     try {
         dispatch({ type: START_LOADING });

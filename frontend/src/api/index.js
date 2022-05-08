@@ -17,6 +17,7 @@ export const fetchTeamBySearch = (email) => API.get(`/user/search/${email}`);
 export const fetchUsers = () => API.get('/user/users');
 export const fetchManagers = () => API.get('/user/managers');
 export const updatePassword = (id, passwordData) => API.patch(`/user/passwordUpdate/${id}`, passwordData);
+export const resetPassword = (userDatas) => API.patch(`/user/passwordReset/${userDatas.id}/${userDatas.tmpPassword}`);
 export const updateUserEmail = (userDatas) => API.patch(`/user/emailUpdate/${userDatas.id}/${userDatas.email}`);
 export const updateUserName = (userDatas) => API.patch(`/user/nameUpdate/${userDatas.id}/${userDatas.name}`);
 export const updateUserPhone = (userDatas) => API.patch(`/user/phoneUpdate/${userDatas.id}/${userDatas.phone_number}`);

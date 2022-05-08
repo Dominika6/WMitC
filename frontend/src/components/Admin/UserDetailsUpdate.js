@@ -4,10 +4,18 @@ import { useParams } from "react-router-dom";
 import { Typography } from "@material-ui/core";
 import {Button, Form} from "react-bootstrap";
 
-import {getUser, getManagers, updateUserEmail, updateUserName, updateUserPhone, updateUserCoordinator} from "../../actions/users";
+import {
+    getUser,
+    getManagers,
+    updateUserEmail,
+    updateUserName,
+    updateUserPhone,
+    updateUserCoordinator,
+    resetPassword
+} from "../../actions/users";
 import Input from '../../components/Auth/Input';
 
-const userInitialData = { email: "", newEmail: "", name:"", phone_number:"" };
+const userInitialData = { email: "", newEmail: "", name:"", phone_number:"", tmpPassword:"", id_supervisor:"" };
 
 const UserDetailsUpdate = () => {
 
@@ -48,7 +56,16 @@ const UserDetailsUpdate = () => {
 
     const handleSubmitCoordinator = async (e) => {
         e.preventDefault();
+        if(userData.id_supervisor === ""){
+            userData.id_supervisor = users[0]?.email;
+        }
         dispatch(updateUserCoordinator({id: user?._id, id_supervisor:  userData?.id_supervisor}));
+    };
+
+    const handlePasswordReset = async (e) => {
+        e.preventDefault();
+
+        dispatch(resetPassword({id: user?._id, tmpPassword:  userData?.tmpPassword}));
     };
 
     return(
@@ -57,19 +74,19 @@ const UserDetailsUpdate = () => {
             <form onSubmit={handleSubmitEmail}>
                 <Typography variant="h6"><b>Email: </b>{user?.email}</Typography><br/>
                 <Input size="small" name="email" type="email" handleChange={handleChange} value={userData?.email}/><br/><br/>
-                <Button variant="success" type="submit">Change email</Button>
+                <Button variant="secondary" type="submit">Change email</Button>
             </form><br/><br/>
 
             <form onSubmit={handleSubmitName}>
                 <Typography variant="h6"><b>Name: </b>{user?.name}</Typography><br/>
                 <Input size="small" name="name" handleChange={handleChange} value={userData?.name}/><br/><br/>
-                <Button variant="success" type="submit">Change name</Button>
+                <Button variant="secondary" type="submit">Change name</Button>
             </form><br/><br/>
 
             <form onSubmit={handleSubmitPhoneNumber}>
                 <Typography variant="h6"><b>Phone number: </b>{user?.phone_number}</Typography><br/>
                 <Input size="small" name="phone_number" handleChange={handleChange} value={userData?.phone_number}/><br/><br/>
-                <Button variant="success" type="submit">Change phone number</Button>
+                <Button variant="secondary" type="submit">Change phone number</Button>
             </form><br/><br/>
 
             <form onSubmit={handleSubmitCoordinator}>
@@ -79,11 +96,14 @@ const UserDetailsUpdate = () => {
                         { users?.map((manager) => ( <option value={manager?.email} key={manager?.email} >{manager?.name} ({manager?.email})</option> )) }
                     </Form.Control>
                 </Form.Group><br/>
-                <Button variant="success" type="submit">Change supervisor</Button>
+                <Button variant="secondary" type="submit">Change supervisor</Button>
+            </form><br/><br/>
 
-            </form>
-            {/*<Typography variant="h6">{user?.password}</Typography>*/}
-        {/*    todo reset hasła*/}
+            <form onSubmit={handlePasswordReset}>
+                <Typography variant="h6"><b>Reset password:</b> enter a temporary password.</Typography><br/>
+                <Input size="small" name="tmpPassword" handleChange={handleChange} value={userData.tmpPassword}/><br/><br/>
+                <Button variant="danger" type="submit">Reset password</Button><br/>
+            </form><br/><br/>
         </div>
     )
 }
