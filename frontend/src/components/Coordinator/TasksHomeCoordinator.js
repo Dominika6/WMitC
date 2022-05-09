@@ -1,22 +1,19 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 
-import { getProjectTasksByCoordinatorEmail } from '../../actions/tasks';
+import { getProjectTasksByCoordinatorEmail } from "../../actions/tasks";
 import TasksGetCoordinator from "./TasksGetCoordinator";
 
-
 const TasksHomeCoordinator = () => {
-    const [currentId, setCurrentId] = useState(0);
-    const user = JSON.parse(localStorage.getItem('profile'));
-    const dispatch = useDispatch();
+  const [currentId, setCurrentId] = useState(0);
+  const user = JSON.parse(localStorage.getItem("profile"));
+  const dispatch = useDispatch();
 
-    useEffect(() => {
-        dispatch(getProjectTasksByCoordinatorEmail(user?.result?.email));
-    }, [currentId, dispatch, user?.result?.email]); // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    dispatch(getProjectTasksByCoordinatorEmail(user?.result?.email));
+  }, [currentId, dispatch, user?.result?.email]); // eslint-disable-line react-hooks/exhaustive-deps
 
-    return (
-        <TasksGetCoordinator key='test' setCurrentId={setCurrentId} />
-    );
+  return <TasksGetCoordinator key="test" setCurrentId={setCurrentId} />;
 };
 
 export default TasksHomeCoordinator;

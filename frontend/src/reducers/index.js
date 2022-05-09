@@ -5,4 +5,10 @@ import clients from "./clients";
 import tasks from "./tasks";
 import projects from "./projects";
 
-export const reducers = combineReducers({ auth, clients, tasks, projects, users });
+export const reducers = combineReducers({
+  auth,
+  clients,
+  tasks,
+  projects,
+  users,
+});
