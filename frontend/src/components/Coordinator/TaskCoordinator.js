@@ -39,11 +39,7 @@ const TaskCoordinator = ({ task }) => {
                             <Typography>{task.id_user}</Typography>
                             <Typography>{(task.deadline) ? task?.deadline.split('T')[0] : <></>}</Typography>
                             <Typography><b>Status:</b> {task.implementation_status}</Typography>
-                            {task.implementation_status === 'done' ? (
-                                <ProgressBar animated now={100} />
-                            ):(task.implementation_status === 'in progress' ? (
-                                <ProgressBar animated now={50} />
-                            ):(<ProgressBar animated now={1} />))}
+                            <ProgressBar animated now={parseInt(task?.hours_worked)/parseInt(task?.estimated_hours)*100} />
                         </div>
                     </ButtonBase>
 

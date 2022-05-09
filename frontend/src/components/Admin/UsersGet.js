@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import { Grid, CircularProgress } from "@material-ui/core";
+import {Grid, CircularProgress, Typography} from "@material-ui/core";
 
 import User from "./User";
 import {getAllUsers} from "../../actions/users";
@@ -22,6 +22,7 @@ const UsersGet = () => {
     return(
         isLoading ? <CircularProgress/> : (
             <>
+                <Typography variant="h4">To edit user account click on the profile.</Typography><br/>
                 {users.map((user) => (
                     <Grid key={user._id} item>
                         <User user={user} setCurrentId={setCurrentId}/><br/>

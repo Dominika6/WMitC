@@ -30,6 +30,12 @@ export const createClient = (newClient) => API.post('/client/createClient', newC
 export const fetchClientsBySearch = (email) => API.get(`/client/search/${email}`);
 export const getClientByTheirEmail = (email) => API.get(`/client/search/client/${email}`);
 export const fetchClients = () => API.get('/client/clients');
+export const fetchClient = (id) => API.get(`/client/getClient/${id}`);
+export const updateClientEmail = (clientDatas) => API.patch(`/client/emailUpdate/${clientDatas.id}/${clientDatas.email}`);
+export const updateClientName = (clientDatas) => API.patch(`/client/nameUpdate/${clientDatas.id}/${clientDatas.name}`);
+export const updateClientPhone = (clientDatas) => API.patch(`/client/phoneUpdate/${clientDatas.id}/${clientDatas.phone_number}`);
+export const updateClientCoordinator = (clientDatas) => API.patch(`/client/managerUpdate/${clientDatas.id}/${clientDatas.id_supervisor}`);
+
 
 
 export const createProject = (newProject) => API.post('/project/createProject', newProject);
@@ -41,6 +47,7 @@ export const fetchMyClientsProjects = (email) => API.get(`/project/getMyClientsP
 export const createTask = (newTask) => API.post('/task/createTask', newTask);
 export const deleteTask = (id) => API.delete(`/task/delete/${id}`);
 export const updateTask = (id, status) => API.patch(`/task/taskStatusUpdate/${id}`, status);
+export const updateTaskWorkHours = (taskDatas) => API.patch(`/task/taskWorkedHoursUpdate/${taskDatas.id}/${taskDatas.hours_worked}`);
 export const commentTask = (value, id) => API.post(`/task/${id}/commentTask`, { value });
 export const fetchTask = (id) => API.get(`/task/${id}`);
 export const fetchTasksBySearch = (email) => API.get(`/task/search/${email}`);

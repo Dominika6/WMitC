@@ -8,7 +8,7 @@ import {
     getTeamTasksBySearch,
     commentTask,
     getTask,
-    getProjectsTasksBySearch
+    getProjectsTasksBySearch, updateTaskWorkHours
 } from "../controllers/tasks.js";
 import { getAllTasks, updateTaskStatus } from "../controllers/tasks.js";
 
@@ -23,6 +23,7 @@ router.delete('/delete/:id', deleteTask);
 router.get('/tasks', getAllTasks);
 router.get('/:id', getTask)
 router.patch('/taskStatusUpdate/:id', updateTaskStatus);
+router.patch('/taskWorkedHoursUpdate/:id/:hours_worked', updateTaskWorkHours);
 router.post('/:id/commentTask', commentTask);
 
 

@@ -16,7 +16,9 @@ const initialState = {
     description: '',
     task_comments: [],
     deadline: '',
-    implementation_status: 'new'
+    implementation_status: 'new',
+    estimated_hours: 0,
+    hours_worked: 0
 }
 
 const CreateTask = () => {
@@ -83,6 +85,13 @@ const CreateTask = () => {
                         { users?.map((user) => ( <option value={user?.email} key={user?.email} >{user?.name}</option> )) }
                     </Form.Control>
                 </Form.Group><br/>
+
+                <Typography variant="h6">{ 'Estimated time of task completion' }</Typography>
+                <InputGroup>
+                    <Form.Group controlId="dob">
+                        <Form.Control type="number" name="estimated_hours" onChange={handleChange} />
+                    </Form.Group><br/>
+                </InputGroup><br/>
 
                 <Typography variant="h6">{ 'Deadline' }</Typography>
                 <InputGroup>

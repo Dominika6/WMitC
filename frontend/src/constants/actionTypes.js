@@ -26,6 +26,8 @@ export const UPDATE_TASK = 'UPDATE_TASK';
 
 export const FETCH_TEAM = 'FETCH_TEAM';
 export const FETCH_USER = 'FETCH_USER';
+export const FETCH_CLIENT = 'FETCH_CLIENT';
+export const UPDATE_CLIENT = 'UPDATE_CLIENT';
 export const FETCH_MANAGERS = 'FETCH_MANAGERS';
 
 export const UPDATE_USER = 'UPDATE_USER';

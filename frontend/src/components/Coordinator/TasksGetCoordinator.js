@@ -23,7 +23,7 @@ const TasksGetCoordinator = ({ setCurrentId }) => {
     return(
         isLoading ? <CircularProgress/> : (
             <Container>
-                {tasks.map((task_group, index) => (
+                {tasks?.map((task_group, index) => (
                     <div key={index}>
                         <br/>
                         {task_group[0]?.id_project ?
@@ -31,11 +31,11 @@ const TasksGetCoordinator = ({ setCurrentId }) => {
                                 <h3>{task_group[0]?.id_project}</h3>
                             </Grid> :
                             <Grid>
-                                <h3>{projects[index].project_name}</h3>
+                                <h3>{projects[index]?.project_name}</h3>
                                 <p>There are no tasks defined in this project.</p>
                             </Grid>
                         }
-                        {task_group.map((task, index) => (
+                        {task_group?.map((task, index) => (
                             <TaskCoordinator key={index} task={task} setCurrentId={setCurrentId}/>
                         ))}<br/>
                         <Divider/>

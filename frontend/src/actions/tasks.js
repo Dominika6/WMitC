@@ -33,6 +33,16 @@ export const updateTask = (id, status) => async (dispatch) => {
     }
 }
 
+export const updateTaskWorkHours = (taskDatas) => async (dispatch) => {
+    try {
+        const { data } = await api.updateTaskWorkHours(taskDatas);
+        dispatch({type: UPDATE_TASK, payload: data});
+        window.location.reload();
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 export const createTask = (formData, history) => async (dispatch) => {
     try {
         const { data } = await api.createTask(formData);
