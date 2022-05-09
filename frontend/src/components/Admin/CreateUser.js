@@ -3,8 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Form, Button, FormControl, InputGroup } from "react-bootstrap";
 import { Typography, Container } from "@material-ui/core";
 
-import { createUser } from "../../actions/users";
-import { getAllUsers } from "../../actions/users";
+import { createUser, sortUsersByPosition } from "../../actions/users";
 import Input from "../Auth/Input";
 
 const initialState = {
@@ -29,31 +28,18 @@ const CreateUser = () => {
   const [formData, setFormData] = useState(initialState);
   const [currentId] = useState(0);
   const dispatch = useDispatch();
-  const { users, isLoading } = useSelector((state) => state.users);
-  const managers = [];
-  const admins = [];
+  const { managers, admins } = useSelector((state) => state.users);
 
   useEffect(() => {
-    dispatch(getAllUsers());
+    dispatch(sortUsersByPosition());
   }, [currentId, dispatch]);
-
-  if (isLoading === false) {
-    users.map((user) => {
-      if (user?.position === "manager") {
-        managers.push(user);
-      } else if (user?.position === "admin") {
-        admins.push(user);
-      }
-      return managers, admins;
-    });
-  }
-  //todo zmienić powyższe na poprawne - hooks
 
   const handleShowPassword = () =>
     setShowPassword((prevShowPassword) => !prevShowPassword);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    // gdy ten, którego się przypisuje był domyślnie wyświetlony
     if (formData.position === "admin") {
       formData.supervisor = "none";
     }
@@ -63,8 +49,6 @@ const CreateUser = () => {
     if (formData.position === "user" && formData.supervisor === "") {
       formData.supervisor = managers[0].email;
     }
-
-    console.log("formData z handleSubmit: ", formData);
     dispatch(createUser(formData));
   };
 

@@ -5,6 +5,7 @@ import {
   FETCH_ALL,
   FETCH_TEAM,
   FETCH_USER,
+  SORT_USERS,
   START_LOADING,
   UPDATE_PASSWORD,
   UPDATE_USER,
@@ -119,6 +120,32 @@ export const updateUserCoordinator = (userDatas) => async (dispatch) => {
     const { data } = await api.updateUserCoordinator(userDatas);
     dispatch({ type: UPDATE_USER, payload: data });
     window.location.reload();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const sortUsersByPosition = (page) => async (dispatch) => {
+  try {
+    dispatch({ type: START_LOADING });
+    const { data } = await api.fetchUsers(page);
+    dispatch({ type: FETCH_ALL, payload: data });
+    dispatch({ type: END_LOADING });
+
+    const admins = [];
+    const managers = [];
+    const workers = [];
+
+    for (let i = 0; i < data.length; i++) {
+      if (data[i].position === "admin") {
+        admins.push(data[i]);
+      } else if (data[i].position === "manager") {
+        managers.push(data[i]);
+      } else if (data[i].position === "user") {
+        workers.push(data[i]);
+      }
+    }
+    dispatch({ type: SORT_USERS, admins, managers, workers });
   } catch (error) {
     console.log(error);
   }

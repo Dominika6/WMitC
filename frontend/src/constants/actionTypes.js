@@ -31,3 +31,4 @@ export const UPDATE_CLIENT = "UPDATE_CLIENT";
 export const FETCH_MANAGERS = "FETCH_MANAGERS";
 
 export const UPDATE_USER = "UPDATE_USER";
+export const SORT_USERS = "SORT_USERS";

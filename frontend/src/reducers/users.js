@@ -8,10 +8,18 @@ import {
   CREATE_USER,
   UPDATE_USER,
   FETCH_MANAGERS,
+  SORT_USERS,
 } from "../constants/actionTypes";
 
 export default (
-  state = { isLoading: true, users: [], managers: [], loadingUserEnd: false },
+  state = {
+    isLoading: true,
+    users: [],
+    managers: [],
+    admins: [],
+    workers: [],
+    loadingUserEnd: false,
+  },
   action
 ) => {
   switch (action.type) {
@@ -48,6 +56,14 @@ export default (
 
     case UPDATE_USER:
       return { ...state, user: action.payload };
+
+    case SORT_USERS:
+      return {
+        ...state,
+        managers: action.managers,
+        admins: action.admins,
+        workers: action.workers,
+      };
 
     default:
       return state;
