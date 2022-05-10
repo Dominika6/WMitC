@@ -22,6 +22,7 @@ import UsersGet from "./components/Admin/UsersGet";
 import ClientsGetAdmin from "./components/Admin/ClientsGetAdmin";
 import ClientDetailsUpdate from "./components/Admin/ClientDetailsUpdate";
 import WorkSummary from "./components/Coordinator/WorkSummary";
+import ClientsSummary from "./components/Coordinator/ClientsSummary";
 
 const App = () => {
   const [loggedUser] = useState(JSON.parse(localStorage.getItem("profile")));
@@ -179,6 +180,17 @@ const App = () => {
             component={() =>
               loggedUser?.result?.position === "manager" ? (
                 <WorkSummary />
+              ) : (
+                <Redirect to="/" />
+              )
+            }
+          />
+          <Route
+            path="/clientSummary"
+            exact
+            component={() =>
+              loggedUser?.result?.position === "manager" ? (
+                <ClientsSummary />
               ) : (
                 <Redirect to="/" />
               )

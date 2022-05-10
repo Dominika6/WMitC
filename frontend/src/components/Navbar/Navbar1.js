@@ -90,6 +90,10 @@ const Navbar1 = () => {
                 Work Summary
               </Link>
               &nbsp;
+              {/*<Link to={"/clientSummary"} className="nav-link">*/}
+              {/*  Clients Summary*/}
+              {/*</Link>*/}
+              {/*&nbsp;*/}
             </>
           ) : user && user?.result.position === "user" ? (
             <>
