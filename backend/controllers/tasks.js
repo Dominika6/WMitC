@@ -32,7 +32,7 @@ export const getTeamTasksBySearch = async (req, res) => {
 };
 
 // szukanie tasków teamu pogrupowanych na projekty/klienta, po mailu koordynatora
-export const getProjectsTasksBySearch = async (req, res) => {
+export const getProjectsTasksBySearchArchived = async (req, res) => {
   const { email } = req.params;
   try {
     const clients = await Clients.find({ id_supervisor: email });
@@ -124,7 +124,6 @@ export const updateTaskStatus = async (req, res) => {
     res.statusMessage(404).json({ message: error.message });
   }
 };
-//export const updateTaskWorkHours = (taskDatas) => API.patch(`/task/taskWorkedHoursUpdate/${taskDatas.id}/${taskDatas.hours_worked}`);
 
 export const updateTaskWorkHours = async (req, res) => {
   const { id, hours_worked } = req.params;

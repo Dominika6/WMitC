@@ -21,6 +21,7 @@ import MyTeamCoordinator from "./components/Coordinator/MyTeamCoordinator";
 import UsersGet from "./components/Admin/UsersGet";
 import ClientsGetAdmin from "./components/Admin/ClientsGetAdmin";
 import ClientDetailsUpdate from "./components/Admin/ClientDetailsUpdate";
+import WorkSummary from "./components/Coordinator/WorkSummary";
 
 const App = () => {
   const [loggedUser] = useState(JSON.parse(localStorage.getItem("profile")));
@@ -172,7 +173,17 @@ const App = () => {
               )
             }
           />
-
+          <Route
+            path="/workSummary"
+            exact
+            component={() =>
+              loggedUser?.result?.position === "manager" ? (
+                <WorkSummary />
+              ) : (
+                <Redirect to="/" />
+              )
+            }
+          />
           <Route
             path="/getMyTeam"
             exact

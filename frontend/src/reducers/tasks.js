@@ -5,6 +5,7 @@ import {
   FETCH_ALL,
   FETCH_BY_SEARCH,
   FETCH_TASK,
+  SORT_TASKS,
   START_LOADING,
   UPDATE_TASK,
 } from "../constants/actionTypes";
@@ -17,7 +18,11 @@ export default (state = { isLoading: true, tasks: [] }, action) => {
       return { ...state, tasks: [...state.tasks, action.payload] };
 
     case FETCH_BY_SEARCH:
-      return { ...state, tasks: action.payload };
+      return {
+        ...state,
+        tasks: action.payload,
+        archived_tasks: action.archived_tasks,
+      };
 
     case FETCH_ALL:
       return { ...state, tasks: action.payload };
@@ -45,6 +50,14 @@ export default (state = { isLoading: true, tasks: [] }, action) => {
         ),
       };
 
+    case SORT_TASKS:
+      return {
+        ...state,
+        archived_tasks: action.archived_tasks,
+        new_tasks: action.new_tasks,
+        in_progress_tasks: action.in_progress_tasks,
+        done_tasks: action.done_tasks,
+      };
     default:
       return state;
   }

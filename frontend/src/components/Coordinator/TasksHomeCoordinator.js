@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 
-import { getProjectTasksByCoordinatorEmail } from "../../actions/tasks";
+import { sortProjectTasksCoordinatorEmailByStatus } from "../../actions/tasks";
 import TasksGetCoordinator from "./TasksGetCoordinator";
 
 const TasksHomeCoordinator = () => {
@@ -10,7 +10,7 @@ const TasksHomeCoordinator = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getProjectTasksByCoordinatorEmail(user?.result?.email));
+    dispatch(sortProjectTasksCoordinatorEmailByStatus(user?.result?.email));
   }, [currentId, dispatch, user?.result?.email]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return <TasksGetCoordinator key="test" setCurrentId={setCurrentId} />;

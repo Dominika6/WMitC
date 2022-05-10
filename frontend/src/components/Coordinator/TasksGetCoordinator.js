@@ -13,21 +13,21 @@ const TasksGetCoordinator = ({ setCurrentId }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getMyClientsProjects(loggedUser.result.email));
+    dispatch(getMyClientsProjects(loggedUser?.result.email));
   }, [dispatch, loggedUser.result.email]);
 
-  if (!tasks.length && !isLoading) return "Your team has no tasks!";
+  if (!tasks?.length && !isLoading) return "Your team has no tasks!";
 
   return isLoading ? (
     <CircularProgress />
   ) : (
     <Container>
-      {tasks?.map((task_group, index) => (
+      {tasks?.map((tasks_group, index) => (
         <div key={index}>
           <br />
-          {task_group[0]?.id_project ? (
+          {tasks_group[0]?.id_project ? (
             <Grid>
-              <h3>{task_group[0]?.id_project}</h3>
+              <h3>{tasks_group[0].id_project}</h3>
             </Grid>
           ) : (
             <Grid>
@@ -35,13 +35,17 @@ const TasksGetCoordinator = ({ setCurrentId }) => {
               <p>There are no tasks defined in this project.</p>
             </Grid>
           )}
-          {task_group?.map((task, index) => (
-            <TaskCoordinator
-              key={index}
-              task={task}
-              setCurrentId={setCurrentId}
-            />
-          ))}
+          {tasks_group?.map((task, index) =>
+            task.implementation_status === "archived" ? (
+              <></>
+            ) : (
+              <TaskCoordinator
+                key={index}
+                task={task}
+                setCurrentId={setCurrentId}
+              />
+            )
+          )}
           <br />
           <Divider />
         </div>

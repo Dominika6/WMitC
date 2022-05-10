@@ -32,3 +32,4 @@ export const FETCH_MANAGERS = "FETCH_MANAGERS";
 
 export const UPDATE_USER = "UPDATE_USER";
 export const SORT_USERS = "SORT_USERS";
+export const SORT_TASKS = "SORT_TASKS";

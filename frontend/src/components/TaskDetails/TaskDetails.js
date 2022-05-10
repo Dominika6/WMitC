@@ -107,13 +107,15 @@ const TaskDetails = () => {
                     name="hoursToAdd"
                     handleChange={handleChange}
                     value={hoursData?.hoursToAdd}
-                  />
+                  ></Input>
                   <br />
                   <br />
-                  <Button variant="success" type="submit">
+                  <Button variant="success" type="submit" className="float-end">
                     Add
                   </Button>
                   <br />
+                  <br />
+                  <Dropdown.Divider />
                   <br />
                 </form>
                 Change status of your TASK: &nbsp;&nbsp;&nbsp;&nbsp;
@@ -146,8 +148,16 @@ const TaskDetails = () => {
                 </Button>
                 <br />
               </>
+            ) : task.implementation_status === "archived" ? (
+              <>
+                The task has been archived, you cannot change its status.
+                <br />
+              </>
             ) : (
-              <>There is a problem with reading the status.</>
+              <>
+                There is a problem with reading the status.
+                <br />
+              </>
             )}
             <br />
           </>

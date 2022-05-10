@@ -78,12 +78,16 @@ const Navbar1 = () => {
                 Clients
               </Link>{" "}
               &nbsp;
+              <Link to={"/getMyTeamC"} className="nav-link">
+                My Team
+              </Link>
+              &nbsp;
               <Link to={"/getAllTasksC"} className="nav-link">
                 All Tasks
               </Link>{" "}
               &nbsp;
-              <Link to={"/getMyTeamC"} className="nav-link">
-                My Team
+              <Link to={"/workSummary"} className="nav-link">
+                Work Summary
               </Link>
               &nbsp;
             </>

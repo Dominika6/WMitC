@@ -72,5 +72,5 @@ export const fetchTask = (id) => API.get(`/task/${id}`);
 export const fetchTasksBySearch = (email) => API.get(`/task/search/${email}`);
 export const getTeamTasksBySearch = (email) =>
   API.get(`/task/search_team/${email}`);
-export const getProjectTasksByCoordinatorEmail = (email) =>
+export const fetchProjectTasksByCoordinatorEmailWithArchived = (email) =>
   API.get(`/task/search_project_tasks/${email}`);

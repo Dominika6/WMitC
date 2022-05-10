@@ -11,7 +11,6 @@ const TeamHome = () => {
   const dispatch = useDispatch();
   const { users, isLoading } = useSelector((state) => state.users);
 
-  console.log(loggedUser?.result?.email);
   useEffect(() => {
     dispatch(getTeamBySearch(loggedUser?.result?.email));
   }, [currentId, dispatch]); // eslint-disable-line react-hooks/exhaustive-deps
