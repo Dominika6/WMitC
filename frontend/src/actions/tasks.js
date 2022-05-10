@@ -198,6 +198,7 @@ export const workSummary = (email) => async (dispatch) => {
           archivedTable.push(task?.implementation_status);
           archivedTable.push(task?.deadline.split("T")[0]);
           archivedTablesToReturn.push(archivedTable);
+          return archivedTable;
         } else {
           const oneTable = [];
           oneTable.push(task?.id_project);

@@ -25,10 +25,14 @@ const TasksGetCoordinator = ({ setCurrentId }) => {
       {tasks?.map((tasks_group, index) => (
         <div key={index}>
           <br />
-          {tasks_group[0]?.id_project ? (
+          {tasks_group[0]?.id_project &&
+          tasks_group[0]?.implementation_status === "archived" ? (
             <Grid>
               <h3>{tasks_group[0].id_project}</h3>
+              <p>All tasks in this project are archived.</p>
             </Grid>
+          ) : tasks_group[0]?.id_project ? (
+            <h3>{tasks_group[0].id_project}</h3>
           ) : (
             <Grid>
               <h3>{projects[index]?.project_name}</h3>
