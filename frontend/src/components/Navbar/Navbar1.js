@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import decode from "jwt-decode";
-import { Nav, Navbar, Container, Button } from "react-bootstrap";
+import { Nav, Navbar, Container, Button, NavDropdown } from "react-bootstrap";
 
 import logoText from "../../images/logo-txt1.png";
 import { LOGOUT } from "../../constants/actionTypes";
@@ -15,8 +15,9 @@ const Navbar1 = () => {
 
   const logout = () => {
     dispatch({ type: LOGOUT });
-    history.push("/");
     setUser(null);
+    sessionStorage.clear();
+    history.push("/");
   };
 
   useEffect(() => {
@@ -43,91 +44,62 @@ const Navbar1 = () => {
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           <Navbar.Text>{user?.result?.name}</Navbar.Text>
         </Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse className="justify-content-end">
+          <Nav style={{ display: "flex", flexDirection: "row" }}>
+            {user && user?.result.position === "admin" ? (
+              <>
+                <Nav.Link href="/createUser">Create User</Nav.Link> &nbsp;
+                <Nav.Link href="/createClient">Create Client</Nav.Link> &nbsp;
+                <Nav.Link href="/getAllUsers">Users</Nav.Link> &nbsp;
+                <Nav.Link href="/getAllClients">Clients</Nav.Link> &nbsp;
+              </>
+            ) : user && user?.result.position === "manager" ? (
+              <>
+                <Nav.Link href="/createProject">Create Project</Nav.Link> &nbsp;
+                <Nav.Link href="/createTask">Create Task</Nav.Link> &nbsp;
+                <Nav.Link href="/getMyClients">Clients</Nav.Link> &nbsp;
+                <Nav.Link href="/getMyTeamC">Team</Nav.Link> &nbsp;
+                <Nav.Link href="/getAllTasksC">Tasks</Nav.Link> &nbsp;
+                <NavDropdown title="Summary" id="basic-nav-dropdown">
+                  <NavDropdown.Item href={"/workSummary"}>
+                    Tasks
+                  </NavDropdown.Item>
+                  <NavDropdown.Item href={"/usersSummary"}>
+                    Users
+                  </NavDropdown.Item>
+                  <NavDropdown.Item href={"/clientsSummary"}>
+                    Clients
+                  </NavDropdown.Item>
+                </NavDropdown>
+                &nbsp;
+              </>
+            ) : user && user?.result.position === "user" ? (
+              <>
+                <Nav.Link href="/getMyTasks">Tasks</Nav.Link> &nbsp;
+                <Nav.Link href="/getMyTeam">Team</Nav.Link> &nbsp;
+              </>
+            ) : (
+              <> </>
+            )}
 
-        <Nav style={{ display: "flex", flexDirection: "row" }}>
-          {user && user?.result.position === "admin" ? (
-            <>
-              <Link to={"/createUser"} className="nav-link">
-                Create User
-              </Link>{" "}
-              &nbsp;
-              <Link to={"/createClient"} className="nav-link">
-                Create Client
-              </Link>{" "}
-              &nbsp;
-              <Link to={"/getAllUsers"} className="nav-link">
-                Users
-              </Link>{" "}
-              &nbsp;
-              <Link to={"/getAllClients"} className="nav-link">
-                Clients
-              </Link>{" "}
-              &nbsp;
-            </>
-          ) : user && user?.result.position === "manager" ? (
-            <>
-              <Link to={"/createProject"} className="nav-link">
-                Create Project
-              </Link>{" "}
-              &nbsp;
-              <Link to={"/createTask"} className="nav-link">
-                Create Task
-              </Link>{" "}
-              &nbsp;
-              <Link to={"/getMyClients"} className="nav-link">
-                Clients
-              </Link>{" "}
-              &nbsp;
-              <Link to={"/getMyTeamC"} className="nav-link">
-                My Team
-              </Link>
-              &nbsp;
-              <Link to={"/getAllTasksC"} className="nav-link">
-                All Tasks
-              </Link>{" "}
-              &nbsp;
-              <Link to={"/workSummary"} className="nav-link">
-                Work Summary
-              </Link>
-              &nbsp;
-              {/*<Link to={"/clientSummary"} className="nav-link">*/}
-              {/*  Clients Summary*/}
-              {/*</Link>*/}
-              {/*&nbsp;*/}
-            </>
-          ) : user && user?.result.position === "user" ? (
-            <>
-              <Link to={"/getMyTasks"} className="nav-link">
-                Tasks
-              </Link>{" "}
-              &nbsp;
-              <Link to={"/getMyTeam"} className="nav-link">
-                Team
-              </Link>{" "}
-              &nbsp;
-            </>
-          ) : (
-            <> </>
-          )}
-
-          {user ? (
-            <>
-              <Link to={"/myAccount"} className="nav-link">
-                Account
-              </Link>{" "}
-              &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              <Button onClick={logout} variant="outline-danger">
-                Logout
-              </Button>
-            </>
-          ) : (
-            <>
-              <Link to={"/login"} className="nav-link">
-                <Button variant="primary">Login</Button>
-              </Link>
-            </>
-          )}
-        </Nav>
+            {user ? (
+              <>
+                <Nav.Link href="/myAccount">Account</Nav.Link> &nbsp; &nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <Button onClick={logout} variant="outline-danger">
+                  Logout
+                </Button>
+              </>
+            ) : (
+              <>
+                <Nav.Link href="/login">
+                  <Button variant="outline-success">Login</Button>
+                </Nav.Link>
+              </>
+            )}
+          </Nav>
+        </Navbar.Collapse>
       </Container>
     </Navbar>
   );

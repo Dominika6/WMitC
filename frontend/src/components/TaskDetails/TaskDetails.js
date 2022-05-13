@@ -16,18 +16,38 @@ const TaskDetails = () => {
   const { id } = useParams();
   const [hoursData, setHoursData] = useState(initialData);
   const user = JSON.parse(localStorage.getItem("profile"));
+  let result = 0;
 
   useEffect(() => {
     dispatch(getTask(id));
   }, [id, dispatch]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  const getNumberOfTotalHoursWorked = (hoursArray, newHours) => {
+    result = 0;
+    for (let i = 0; i < hoursArray.length; i++) {
+      result = result + parseInt(hoursArray[i].split(":")[0]);
+    }
+    result = result + parseInt(newHours);
+    return result;
+  };
+
+  const dispatchData = () => {
+    const today = new Date();
+    let month = today.getMonth();
+    month++;
+    month < 10 ? (month = `0${month}`) : (month = month.toString());
+    const todayData = `${today.getDate()}-${month}-${today.getFullYear()}`;
+    const hours = `${parseInt(hoursData.hoursToAdd)}:${todayData}`;
+    const formData = { id: task._id, value: hours };
+    dispatch(updateTaskWorkHours(formData));
+    setHoursData(initialData);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    const hours =
-      parseInt(task?.hours_worked) + parseInt(hoursData?.hoursToAdd);
-    const formData = { id: task._id, hours_worked: hours };
-    console.log(formData);
-    dispatch(updateTaskWorkHours(formData));
+    getNumberOfTotalHoursWorked(task.hours_worked, hoursData.hoursToAdd) < 0
+      ? alert("Working hours cannot be negative")
+      : dispatchData();
   };
 
   const handleChange = (e) => {
@@ -57,7 +77,8 @@ const TaskDetails = () => {
           <b>Deadline:</b> {task.deadline.split("T")[0]}
         </Typography>
         <Typography variant="h6">
-          <b>Hours worked:</b> {task?.hours_worked} hours
+          <b>Hours worked:</b>{" "}
+          {getNumberOfTotalHoursWorked(task?.hours_worked, 0)} hours
         </Typography>
         <Typography variant="h6">
           <b>Estimated time of task completion:</b> {task?.estimated_hours}{" "}
@@ -70,7 +91,8 @@ const TaskDetails = () => {
         <ProgressBar
           animated
           now={
-            (parseInt(task?.hours_worked) / parseInt(task?.estimated_hours)) *
+            (parseInt(getNumberOfTotalHoursWorked(task?.hours_worked, 0)) /
+              parseInt(task?.estimated_hours)) *
             100
           }
         />
@@ -80,14 +102,12 @@ const TaskDetails = () => {
           <>
             <Dropdown.Divider />
             <br />
-            {/*https://react-bootstrap.github.io/forms/layout/#auto-sizing*/}
-
             {task.implementation_status === "new" ? (
               <>
                 Change status of your TASK: &nbsp;&nbsp;&nbsp;&nbsp;
                 <Button
                   size="small"
-                  variant="success"
+                  variant="outline-success"
                   onClick={() => dispatch(updateTask(task._id, "in progress"))}
                 >
                   Start Task
@@ -96,6 +116,55 @@ const TaskDetails = () => {
               </>
             ) : task.implementation_status === "in progress" ? (
               <>
+                Change status of your TASK: &nbsp;&nbsp;&nbsp;&nbsp;
+                <Button
+                  size="small"
+                  variant="outline-success"
+                  onClick={() => dispatch(updateTask(task._id, "done"))}
+                >
+                  Finish Task
+                </Button>{" "}
+                &nbsp;
+                {task.hours_worked === 0 ? (
+                  <Button
+                    size="small"
+                    variant="outline-secondary"
+                    onClick={() => dispatch(updateTask(task._id, "new"))}
+                  >
+                    I haven't started task yet
+                  </Button>
+                ) : (
+                  <br />
+                )}
+              </>
+            ) : task.implementation_status === "done" ? (
+              <>
+                Change status of your TASK: &nbsp;&nbsp;&nbsp;&nbsp;
+                <Button
+                  size="small"
+                  variant="outline-secondary"
+                  onClick={() => dispatch(updateTask(task._id, "in progress"))}
+                >
+                  I haven't finished task yet
+                </Button>
+                <br />
+              </>
+            ) : task.implementation_status === "archived" ? (
+              <>
+                The task has been archived, you cannot change its status.
+                <br />
+              </>
+            ) : (
+              <>
+                There is a problem with reading the status.
+                <br />
+              </>
+            )}
+            {task.implementation_status === "in progress" ? (
+              <>
+                <br />
+                <Dropdown.Divider />
+                <br />
                 <form onSubmit={handleSubmit}>
                   <Typography variant="body1">
                     {"Add to the time worked on this task:"}
@@ -115,58 +184,25 @@ const TaskDetails = () => {
                   </Button>
                   <br />
                   <br />
-                  <Dropdown.Divider />
-                  <br />
                 </form>
-                Change status of your TASK: &nbsp;&nbsp;&nbsp;&nbsp;
-                <Button
-                  size="small"
-                  variant="success"
-                  onClick={() => dispatch(updateTask(task._id, "done"))}
-                >
-                  Finish Task
-                </Button>{" "}
-                &nbsp;
-                <Button
-                  size="small"
-                  variant="secondary"
-                  onClick={() => dispatch(updateTask(task._id, "new"))}
-                >
-                  I haven't started task yet
-                </Button>
-                <br />
-              </>
-            ) : task.implementation_status === "done" ? (
-              <>
-                Change status of your TASK: &nbsp;&nbsp;&nbsp;&nbsp;
-                <Button
-                  size="small"
-                  variant="secondary"
-                  onClick={() => dispatch(updateTask(task._id, "in progress"))}
-                >
-                  I haven't finished task yet
-                </Button>
-                <br />
-              </>
-            ) : task.implementation_status === "archived" ? (
-              <>
-                The task has been archived, you cannot change its status.
-                <br />
               </>
             ) : (
-              <>
-                There is a problem with reading the status.
-                <br />
-              </>
+              <></>
             )}
-            <br />
           </>
         ) : (
           <></>
         )}
-        <Dropdown.Divider />
-        <br />
-        <Comments task={task} />
+        {task.implementation_status === "done" ||
+        task.implementation_status === "new" ? (
+          <></>
+        ) : (
+          <>
+            <Dropdown.Divider />
+            <br />
+            <Comments task={task} />
+          </>
+        )}
       </div>
     </Paper>
   );

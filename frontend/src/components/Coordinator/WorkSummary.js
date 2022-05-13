@@ -10,9 +10,19 @@ const WorkSummary = () => {
   const [currentId] = useState(0);
   const user = JSON.parse(localStorage.getItem("profile"));
   const dispatch = useDispatch();
+  let result = 0;
+
   const { tasks, archived_tasks, isLoading } = useSelector(
     (state) => state.tasks
   );
+
+  const getNumberOfTotalHoursWorked = (hoursArray) => {
+    result = 0;
+    for (let i = 0; i < hoursArray.length; i++) {
+      result = result + parseInt(hoursArray[i].split(":")[0]);
+    }
+    return result;
+  };
 
   useEffect(() => {
     dispatch(workSummary(user?.result?.email));
@@ -46,7 +56,7 @@ const WorkSummary = () => {
                   <td>{task[0]}</td>
                   <td>{task[1]}</td>
                   <td>{task[2]}</td>
-                  <td>{task[3]}</td>
+                  <td>{getNumberOfTotalHoursWorked(task[3])}</td>
                   <td>{task[4]}</td>
                   <td>{task[5]}</td>
                 </tr>
@@ -87,7 +97,7 @@ const WorkSummary = () => {
                   <td>{task[0]}</td>
                   <td>{task[1]}</td>
                   <td>{task[2]}</td>
-                  <td>{task[3]}</td>
+                  <td>{getNumberOfTotalHoursWorked(task[3])}</td>
                   <td>{task[4]}</td>
                   <td>{task[5]}</td>
                 </tr>

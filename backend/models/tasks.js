@@ -9,7 +9,7 @@ const tasksSchema = mongoose.Schema({
   task_comments: { type: [String], default: [] },
   deadline: { type: Date, required: true },
   estimated_hours: { type: Number, required: true },
-  hours_worked: { type: Number, default: 0 },
+  hours_worked: { type: [String], default: [] },
   implementation_status: {
     type: String,
     enum: ["new", "in progress", "done", "archived"],

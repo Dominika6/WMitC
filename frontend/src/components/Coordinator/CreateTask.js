@@ -17,7 +17,7 @@ const initialState = {
   deadline: "",
   implementation_status: "new",
   estimated_hours: 0,
-  hours_worked: 0,
+  hours_worked: [],
 };
 
 const CreateTask = () => {
@@ -45,7 +45,11 @@ const CreateTask = () => {
     if (formData.id_user === "") {
       formData.id_user = users[0]?.email;
     }
-    console.log(formData);
+    const today = new Date();
+    let month = today.getMonth();
+    month < 10 ? (month = `0${month}`) : (month = month.toString());
+    const todayData = `${today.getDate()}-${month}-${today.getFullYear()}`;
+    formData.hours_worked.push(`0:${todayData}`);
     dispatch(createTask(formData, history));
   };
 
@@ -116,6 +120,7 @@ const CreateTask = () => {
           <Form.Group controlId="dob">
             <Form.Control
               type="number"
+              min="0"
               name="estimated_hours"
               onChange={handleChange}
             />

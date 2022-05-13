@@ -33,9 +33,8 @@ export const deleteTask = (id) => async (dispatch) => {
 
 export const archiveTask = (id) => async (dispatch) => {
   try {
-    const { data } = await api.updateTask(id, {
-      implementation_status: "archived",
-    });
+    const newStatus = "archived";
+    const { data } = await api.updateTask(id, newStatus);
     dispatch({ type: UPDATE_TASK, payload: data });
     window.location.reload();
   } catch (error) {
@@ -45,8 +44,7 @@ export const archiveTask = (id) => async (dispatch) => {
 
 export const updateTask = (id, status) => async (dispatch) => {
   try {
-    const newStatus = { implementation_status: status };
-    const { data } = await api.updateTask(id, newStatus);
+    const { data } = await api.updateTask(id, status);
     dispatch({ type: UPDATE_TASK, payload: data });
     window.location.reload();
   } catch (error) {
@@ -91,12 +89,10 @@ export const getTasksBySearch = (email) => async (dispatch) => {
 export const getProjectTasksByCoordinatorEmailWithArchived =
   (email) => async (dispatch) => {
     try {
-      console.log("getProjectTasksByCoordinatorEmailWithArchived");
       dispatch({ type: START_LOADING });
       const {
         data: { data },
       } = await api.fetchProjectTasksByCoordinatorEmailWithArchived(email);
-      console.log(data);
       dispatch({ type: FETCH_BY_SEARCH, payload: data });
       dispatch({ type: END_LOADING });
     } catch (error) {

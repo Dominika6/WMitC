@@ -1,9 +1,8 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import DeleteIcon from "@material-ui/icons/Delete";
-import { ButtonBase, Card, Typography } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
-import { Container, ProgressBar, Button } from "react-bootstrap";
+import { Container, Button, Card } from "react-bootstrap";
 
 import { archiveTask } from "../../actions/tasks";
 
@@ -25,45 +24,28 @@ const TaskCoordinator = ({ task }) => {
       )
     ) {
       dispatch(archiveTask(task._id));
-      window.location.reload();
     } else {
       console.log("Task has not been archived.");
     }
   };
-  //todo jednakowa długość progressbara
+
   return (
     <>
       <br />
-      <Card raised elevation={6}>
+      <Card raised="true" elevation={6}>
         <Container>
-          <ButtonBase onClick={openTask} component="span" name="test">
-            <div>
-              <br />
-              <Typography>
-                <b>{task?.task_name}</b>
-              </Typography>
-              <br />
-              <Typography>{task?.id_user}</Typography>
-              <Typography>
-                {task?.deadline ? task?.deadline.split("T")[0] : <></>}
-              </Typography>
-              <Typography>
-                <b>Status:</b> {task?.implementation_status}
-              </Typography>
-              <ProgressBar
-                animated
-                now={
-                  (parseInt(task?.hours_worked) /
-                    parseInt(task?.estimated_hours)) *
-                  100
-                }
-              />
-            </div>
-          </ButtonBase>
-
+          <div onClick={openTask}>
+            <br />
+            <b>{task?.task_name}</b>
+            <br />
+            {task?.id_user}
+            <br />
+            {task?.deadline ? task?.deadline.split("T")[0] : <></>}
+            <br />
+            <b>Status:</b> {task?.implementation_status}
+          </div>
           {user && user?.result.position === "manager" ? (
             <>
-              <br />
               <Button
                 variant="danger"
                 type="submit"
@@ -77,6 +59,7 @@ const TaskCoordinator = ({ task }) => {
           ) : (
             <></>
           )}
+          <br />
         </Container>
       </Card>
     </>

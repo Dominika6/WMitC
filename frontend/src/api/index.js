@@ -60,12 +60,10 @@ export const fetchMyClientsProjects = (email) =>
 
 export const createTask = (newTask) => API.post("/task/createTask", newTask);
 export const deleteTask = (id) => API.delete(`/task/delete/${id}`);
-export const updateTask = (id, status) =>
-  API.patch(`/task/taskStatusUpdate/${id}`, status);
+export const updateTask = (id, implementation_status) =>
+  API.patch(`/task/taskStatusUpdate/${id}/${implementation_status}`);
 export const updateTaskWorkHours = (taskDatas) =>
-  API.patch(
-    `/task/taskWorkedHoursUpdate/${taskDatas.id}/${taskDatas.hours_worked}`
-  );
+  API.patch(`/task/taskWorkedHoursUpdate/${taskDatas.id}/${taskDatas.value}`);
 export const commentTask = (value, id) =>
   API.post(`/task/${id}/commentTask`, { value });
 export const fetchTask = (id) => API.get(`/task/${id}`);

@@ -66,6 +66,7 @@ export const createTask = async (req, res) => {
     estimated_hours,
     hours_worked,
   } = req.body;
+  console.log(hours_worked);
   try {
     const existingProject = await Projects.findOne({ project_name: project });
     if (!existingProject)
@@ -111,8 +112,7 @@ export const getAllTasks = async (req, res) => {
 };
 
 export const updateTaskStatus = async (req, res) => {
-  const { id } = req.params;
-  const { implementation_status } = req.body;
+  const { id, implementation_status } = req.params;
   try {
     if (!mongoose.Types.ObjectId.isValid(id))
       return res.status(404).send("No task with that id");
@@ -126,19 +126,16 @@ export const updateTaskStatus = async (req, res) => {
 };
 
 export const updateTaskWorkHours = async (req, res) => {
-  const { id, hours_worked } = req.params;
+  const { id, value } = req.params;
   try {
-    const existingTask = await Tasks.findOne({ _id: id });
-    if (!existingTask)
-      return res.status(404).json({ messsage: "Task doesn't exist." });
+    const task = await Tasks.findOne({ _id: id });
+    if (!task) return res.status(404).json({ messsage: "Task doesn't exist." });
     if (!mongoose.Types.ObjectId.isValid(id))
       return res.status(404).send("No task with that id.");
-    await Tasks.findByIdAndUpdate(
-      id,
-      { hours_worked: hours_worked },
-      { new: true }
-    );
-    res.status(200).json({ result: existingTask });
+    task.hours_worked.push(value);
+    console.log(task.hours_worked);
+    const updatedTask = await Tasks.findByIdAndUpdate(id, task, { new: true });
+    res.status(200).json(updatedTask);
   } catch (error) {
     res.status(500).json({ message: "Something went wrong." });
   }
@@ -147,10 +144,14 @@ export const updateTaskWorkHours = async (req, res) => {
 export const commentTask = async (req, res) => {
   const { id } = req.params;
   const { value } = req.body;
-  const task = await Tasks.findById(id);
-  task.task_comments.push(value);
-  const updatedTask = await Tasks.findByIdAndUpdate(id, task, { new: true });
-  res.json(updatedTask);
+  try {
+    const task = await Tasks.findById(id);
+    task.task_comments.push(value);
+    const updatedTask = await Tasks.findByIdAndUpdate(id, task, { new: true });
+    res.status(200).json(updatedTask);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
 };
 
 export const getTask = async (req, res) => {

@@ -16,6 +16,17 @@ const TasksGetCoordinator = ({ setCurrentId }) => {
     dispatch(getMyClientsProjects(loggedUser?.result.email));
   }, [dispatch, loggedUser.result.email]);
 
+  function ifAllTasksAreArchived(task_group) {
+    let result;
+    for (let i = 0; i < task_group.length; i++) {
+      task_group[i]?.implementation_status === "new" ||
+      task_group[i]?.implementation_status === "in progress" ||
+      task_group[i]?.implementation_status === "done"
+        ? (result = false)
+        : (result = true);
+    }
+    return result;
+  }
   if (!tasks?.length && !isLoading) return "Your team has no tasks!";
 
   return isLoading ? (
@@ -25,8 +36,7 @@ const TasksGetCoordinator = ({ setCurrentId }) => {
       {tasks?.map((tasks_group, index) => (
         <div key={index}>
           <br />
-          {tasks_group[0]?.id_project &&
-          tasks_group[0]?.implementation_status === "archived" ? (
+          {tasks_group[0]?.id_project && ifAllTasksAreArchived(tasks_group) ? (
             <Grid>
               <h3>{tasks_group[0].id_project}</h3>
               <p>All tasks in this project are archived.</p>
@@ -39,9 +49,9 @@ const TasksGetCoordinator = ({ setCurrentId }) => {
               <p>There are no tasks defined in this project.</p>
             </Grid>
           )}
-          {tasks_group?.map((task, index) =>
+          {tasks_group.map((task, index) =>
             task.implementation_status === "archived" ? (
-              <></>
+              <div key={task._id}></div>
             ) : (
               <TaskCoordinator
                 key={index}

@@ -1,13 +1,13 @@
 import React from "react";
 import { Typography } from "@material-ui/core";
 
-const ClientsSummary = () => {
+const UsersSummary = () => {
   return (
     <>
-      <Typography variant="h4"> Clients Summary</Typography>
+      <Typography variant="h4"> Users Summary</Typography>
       <br />
       <br />
     </>
   );
 };
-export default ClientsSummary;
+export default UsersSummary;

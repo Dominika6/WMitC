@@ -22,8 +22,8 @@ router.get("/search_project_tasks/:email", getProjectsTasksBySearchArchived);
 router.delete("/delete/:id", deleteTask);
 router.get("/tasks", getAllTasks);
 router.get("/:id", getTask);
-router.patch("/taskStatusUpdate/:id", updateTaskStatus);
-router.patch("/taskWorkedHoursUpdate/:id/:hours_worked", updateTaskWorkHours);
+router.patch("/taskStatusUpdate/:id/:implementation_status", updateTaskStatus);
+router.patch("/taskWorkedHoursUpdate/:id/:value", updateTaskWorkHours);
 router.post("/:id/commentTask", commentTask);
 
 export default router;

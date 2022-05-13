@@ -31,7 +31,6 @@ const Comments = ({ task }) => {
           </Typography>
         ))}
       </div>
-      <br />
       {loggedUser?.result?.name && (
         <div>
           <TextField
@@ -44,7 +43,7 @@ const Comments = ({ task }) => {
           />
           <br />
           <br />
-          <Button variant="success" onClick={handleClick}>
+          <Button variant="success" onClick={handleClick} className="float-end">
             Add
           </Button>
           <br />

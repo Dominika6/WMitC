@@ -13,12 +13,16 @@ const GetMyTasks = ({ setCurrentId }) => {
     <CircularProgress />
   ) : (
     <>
-      {tasks.map((task) => (
-        <Grid key={task._id} item>
-          <Task task={task} setCurrentId={setCurrentId} />
-          <br />
-        </Grid>
-      ))}
+      {tasks.map((task) =>
+        task?.implementation_status === "archived" ? (
+          <></>
+        ) : (
+          <Grid key={task._id} item>
+            <Task task={task} setCurrentId={setCurrentId} />
+            <br />
+          </Grid>
+        )
+      )}
     </>
   );
 };
