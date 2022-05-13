@@ -133,7 +133,6 @@ export const updateTaskWorkHours = async (req, res) => {
     if (!mongoose.Types.ObjectId.isValid(id))
       return res.status(404).send("No task with that id.");
     task.hours_worked.push(value);
-    console.log(task.hours_worked);
     const updatedTask = await Tasks.findByIdAndUpdate(id, task, { new: true });
     res.status(200).json(updatedTask);
   } catch (error) {
