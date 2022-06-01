@@ -86,16 +86,6 @@ export const getUser = (id) => async (dispatch) => {
   }
 };
 
-export const updateUserEmail = (userDatas) => async (dispatch) => {
-  try {
-    const { data } = await api.updateUserEmail(userDatas);
-    dispatch({ type: UPDATE_USER, payload: data });
-    window.location.reload();
-  } catch (error) {
-    console.log(error);
-  }
-};
-
 export const updateUserName = (userDatas) => async (dispatch) => {
   try {
     const { data } = await api.updateUserName(userDatas);
@@ -109,16 +99,6 @@ export const updateUserName = (userDatas) => async (dispatch) => {
 export const updateUserPhone = (userDatas) => async (dispatch) => {
   try {
     const { data } = await api.updateUserPhone(userDatas);
-    dispatch({ type: UPDATE_USER, payload: data });
-    window.location.reload();
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-export const updateUserCoordinator = (userDatas) => async (dispatch) => {
-  try {
-    const { data } = await api.updateUserCoordinator(userDatas);
     dispatch({ type: UPDATE_USER, payload: data });
     window.location.reload();
   } catch (error) {

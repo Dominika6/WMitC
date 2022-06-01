@@ -50,7 +50,6 @@ const Navbar1 = () => {
           id="responsive-navbar-nav"
         >
           <Nav className="justify-content-end">
-            {/*<Nav style={{ display: "flex", flexDirection: "row" }}>*/}
             {user && user?.result.position === "admin" ? (
               <>
                 <Nav.Link href="/createUser">Create User</Nav.Link> &nbsp;

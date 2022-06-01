@@ -1,6 +1,6 @@
 import {
   CREATE_TASK,
-  DELETE,
+  // DELETE,
   END_LOADING,
   FETCH_ALL,
   FETCH_BY_SEARCH,
@@ -40,11 +40,11 @@ export default (state = { isLoading: true, tasks: [] }, action) => {
     case END_LOADING:
       return { ...state, isLoading: false };
 
-    case DELETE:
-      return {
-        ...state,
-        tasks: state.tasks.filter((task) => task._id !== action.payload),
-      };
+    // case DELETE:
+    //   return {
+    //     ...state,
+    //     tasks: state.tasks.filter((task) => task._id !== action.payload),
+    //   };
 
     case UPDATE_TASK:
       return {

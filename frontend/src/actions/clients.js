@@ -32,19 +32,6 @@ export const getClientsBySearch = (email) => async (dispatch) => {
   }
 };
 
-export const getClientByTheirEmail = (email) => async (dispatch) => {
-  try {
-    dispatch({ type: START_LOADING });
-    const {
-      data: { data },
-    } = await api.getClientByTheirEmail(email);
-    dispatch({ type: FETCH_CLIENT, payload: data });
-    dispatch({ type: END_LOADING });
-  } catch (error) {
-    console.log(error);
-  }
-};
-
 export const getAllClients = (page) => async (dispatch) => {
   try {
     dispatch({ type: START_LOADING });
@@ -77,29 +64,9 @@ export const updateClientEmail = (clientDatas) => async (dispatch) => {
   }
 };
 
-export const updateClientName = (clientDatas) => async (dispatch) => {
-  try {
-    const { data } = await api.updateClientName(clientDatas);
-    dispatch({ type: UPDATE_CLIENT, payload: data });
-    window.location.reload();
-  } catch (error) {
-    console.log(error);
-  }
-};
-
 export const updateClientPhone = (clientDatas) => async (dispatch) => {
   try {
     const { data } = await api.updateClientPhone(clientDatas);
-    dispatch({ type: UPDATE_CLIENT, payload: data });
-    window.location.reload();
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-export const updateClientCoordinator = (clientDatas) => async (dispatch) => {
-  try {
-    const { data } = await api.updateClientCoordinator(clientDatas);
     dispatch({ type: UPDATE_CLIENT, payload: data });
     window.location.reload();
   } catch (error) {

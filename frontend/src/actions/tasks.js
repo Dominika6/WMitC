@@ -2,15 +2,11 @@ import {
   CLIENT_SUMMARY_TABLE,
   COMMENT,
   CREATE_TASK,
-  DELETE,
   END_LOADING,
-  END_LOADING_PROJECT,
   FETCH_BY_SEARCH,
-  FETCH_MY_CLIENTS_PROJECTS,
   FETCH_TASK,
   SORT_TASKS,
   START_LOADING,
-  START_LOADING_PROJECT,
   TEAM_SUMMARY_TABLE,
   UPDATE_TASK,
   USER_SUMMARY_TABLE,
@@ -23,15 +19,6 @@ export const getTask = (id) => async (dispatch) => {
     const { data } = await api.fetchTask(id);
     dispatch({ type: FETCH_TASK, payload: data });
     dispatch({ type: END_LOADING });
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-export const deleteTask = (id) => async (dispatch) => {
-  try {
-    await api.deleteTask(id);
-    dispatch({ type: DELETE, payload: id });
   } catch (error) {
     console.log(error);
   }
@@ -85,33 +72,6 @@ export const getTasksBySearch = (email) => async (dispatch) => {
     const {
       data: { data },
     } = await api.fetchTasksBySearch(email);
-    dispatch({ type: FETCH_BY_SEARCH, payload: data });
-    dispatch({ type: END_LOADING });
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-export const getProjectTasksByCoordinatorEmailWithArchived =
-  (email) => async (dispatch) => {
-    try {
-      dispatch({ type: START_LOADING });
-      const {
-        data: { data },
-      } = await api.fetchProjectTasksByCoordinatorEmailWithArchived(email);
-      dispatch({ type: FETCH_BY_SEARCH, payload: data });
-      dispatch({ type: END_LOADING });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-export const getTeamTasksBySearch = (email) => async (dispatch) => {
-  try {
-    dispatch({ type: START_LOADING });
-    const {
-      data: { data },
-    } = await api.getTeamTasksBySearch(email);
     dispatch({ type: FETCH_BY_SEARCH, payload: data });
     dispatch({ type: END_LOADING });
   } catch (error) {
@@ -226,105 +186,6 @@ export const workSummary = (email) => async (dispatch) => {
   } catch (error) {
     console.log(error);
   }
-};
-//
-// const getCurrentDatas = () => {
-//   let last_month;
-//   let last_month_year;
-//   let current_month = new Date().getMonth() + 1;
-//   const current_year = new Date().getFullYear();
-//   if (current_month === 1) {
-//     last_month = 12;
-//     last_month_year = current_year - 1;
-//   } else {
-//     last_month = current_month - 1;
-//     last_month_year = current_year;
-//   }
-//   if (current_month < 10) {
-//     current_month = `0${current_month}`;
-//   }
-//   if (last_month < 10) {
-//     last_month = `0${last_month}`;
-//   }
-//   const current_month_date = `${current_month}.${current_year}`;
-//   const last_month_date = `${last_month}.${last_month_year}`;
-//
-//   return {
-//     current_month_date: current_month_date,
-//     last_month_date: last_month_date,
-//   };
-// };
-//
-// export const getWorkedTimeFromProjectName = (project) => async (dispatch) => {
-//   dispatch({ type: START_LOADING });
-//   const { data } = await api.fetchWorkedTimeFromProjectName(project);
-//   console.log("getWorkedTimeFromProjectNAme, początek: ", data);
-//   const project_tasks = data?.tasks;
-//   const all_project_hours = data?.all_project_hours;
-//   let current_month_hours = 0;
-//   let last_month_hours = 0;
-//   const current_datas = getCurrentDatas();
-//
-//   let checked_month;
-//   for (let i = 0; i < project_tasks.length; i++) {
-//     for (let j = 0; j < project_tasks[i].hours_worked.length; j++) {
-//       checked_month = `${project_tasks[i].hours_worked[j].split(".")[1]}.${
-//         project_tasks[i].hours_worked[j].split(".")[2]
-//       }`;
-//       if (checked_month === current_datas.current_month_date) {
-//         current_month_hours =
-//           current_month_hours +
-//           parseInt(project_tasks[i].hours_worked[j].split(":")[0]);
-//       }
-//       if (checked_month === current_datas.last_month_date) {
-//         last_month_hours =
-//           last_month_hours +
-//           parseInt(project_tasks[i].hours_worked[j].split(":")[0]);
-//       }
-//     }
-//   }
-//   const hours_data = {
-//     all_project_hours: all_project_hours,
-//     current_month_hours: current_month_hours,
-//     last_month_hours: last_month_hours,
-//   };
-//   dispatch({
-//     type: PROJECT_HOURS,
-//     project_tasks,
-//     hours_data,
-//   });
-//   dispatch({ type: END_LOADING });
-//   return {
-//     all_project_hours: all_project_hours,
-//     current_month_hours: current_month_hours,
-//     last_month_hours: last_month_hours,
-//   };
-// };
-
-// export const getAllClientProjects = (email) => async (dispatch) => {
-//   dispatch({ type: START_LOADING_PROJECT });
-//   const {
-//     data: { data },
-//   } = await api.fetchClientProjects(email);
-//   console.log(data);
-//
-//   let tmpProject;
-//   for (let i = 0; i < data.length; i++) {
-//     console.log("i", i, data[i]);
-//     tmpProject = getWorkedTimeFromProjectName(data[i].project_name);
-//     console.log(tmpProject);
-//   }
-//   dispatch({ type: FETCH_MY_CLIENTS_PROJECTS, payload: data });
-//   dispatch({ type: END_LOADING_PROJECT });
-// };
-
-export const getAllClientProjects = (email) => async (dispatch) => {
-  dispatch({ type: START_LOADING_PROJECT });
-  const {
-    data: { data },
-  } = await api.fetchClientProjects(email);
-  dispatch({ type: FETCH_MY_CLIENTS_PROJECTS, payload: data });
-  dispatch({ type: END_LOADING_PROJECT });
 };
 
 export const getClientSummaryTable = (email) => async (dispatch) => {

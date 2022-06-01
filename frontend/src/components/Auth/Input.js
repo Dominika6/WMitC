@@ -1,15 +1,8 @@
 import React from "react";
-import { TextField, InputAdornment, IconButton } from "@material-ui/core";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
+import { TextField, InputAdornment, IconButton } from "@material-ui/core";
 
-const Input = ({
-  name,
-  handleChange,
-  label,
-  autoFocus,
-  type,
-  handleShowPassword,
-}) => (
+const Input = ({ name, handleChange, type, handleShowPassword }) => (
   <TextField
     name={name}
     onChange={handleChange}
@@ -17,9 +10,8 @@ const Input = ({
     required
     size="small"
     fullWidth
-    label={label}
-    autoFocus={autoFocus}
     type={type}
+    // widoczność hasła w inputach 'password'
     InputProps={
       name === "password"
         ? {

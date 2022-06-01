@@ -12,9 +12,10 @@ import {
   updateTaskWorkHours,
   getClientSummaryTable,
   getUserSummaryTable,
-  getTeamSummaryTable,getAllTasks, updateTaskStatus
+  getTeamSummaryTable,
+  getAllTasks,
+  updateTaskStatus,
 } from "../controllers/tasks.js";
-
 
 const router = express.Router();
 
