@@ -46,6 +46,7 @@ const TasksGetCoordinator = ({ setCurrentId }) => {
           ) : (
             <Grid>
               <h3>{projects[index]?.project_name}</h3>
+              <br />
               <p>There are no tasks defined in this project.</p>
             </Grid>
           )}

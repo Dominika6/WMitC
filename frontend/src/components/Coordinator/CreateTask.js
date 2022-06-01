@@ -46,9 +46,9 @@ const CreateTask = () => {
       formData.id_user = users[0]?.email;
     }
     const today = new Date();
-    let month = today.getMonth();
+    let month = today.getMonth() + 1;
     month < 10 ? (month = `0${month}`) : (month = month.toString());
-    const todayData = `${today.getDate()}-${month}-${today.getFullYear()}`;
+    const todayData = `${today.getDate()}.${month}.${today.getFullYear()}`;
     formData.hours_worked.push(`0:${todayData}`);
     dispatch(createTask(formData, history));
   };
@@ -101,7 +101,7 @@ const CreateTask = () => {
         </InputGroup>
         <br />
 
-        <Typography variant="h6">{"User"}</Typography>
+        <Typography variant="h6">{"Worker"}</Typography>
         <Form.Group className="mb-3" controlId="formBasicSelect">
           <Form.Control as="select" name="id_user" onChange={handleChange}>
             {users?.map((user) => (

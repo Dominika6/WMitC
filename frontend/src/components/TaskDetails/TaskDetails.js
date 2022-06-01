@@ -36,7 +36,7 @@ const TaskDetails = () => {
     let month = today.getMonth();
     month++;
     month < 10 ? (month = `0${month}`) : (month = month.toString());
-    const todayData = `${today.getDate()}-${month}-${today.getFullYear()}`;
+    const todayData = `${today.getDate()}.${month}.${today.getFullYear()}`;
     const hours = `${parseInt(hoursData.hoursToAdd)}:${todayData}`;
     const formData = { id: task._id, value: hours };
     dispatch(updateTaskWorkHours(formData));
@@ -69,10 +69,15 @@ const TaskDetails = () => {
         <br />
         <Typography variant="h6">{task.task_description}</Typography>
         <br />
-        <Typography variant="h6">
-          <b>Assigned employee: </b>
-          {task.id_user}
-        </Typography>
+        {user?.result?.position === "user" ? (
+          <></>
+        ) : (
+          <Typography variant="h6">
+            <b>Assigned employee: </b>
+            {task.id_user}
+          </Typography>
+        )}
+
         <Typography variant="h6">
           <b>Deadline:</b> {task.deadline.split("T")[0]}
         </Typography>

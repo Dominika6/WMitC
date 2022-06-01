@@ -57,6 +57,8 @@ export const deleteProject = (id) => API.delete(`/project/delete/${id}`);
 export const fetchProjects = () => API.get("/project/projects");
 export const fetchMyClientsProjects = (email) =>
   API.get(`/project/getMyClientsProjects/${email}`);
+export const fetchClientProjects = (email) =>
+  API.get(`/project/getClientProjects/${email}`);
 
 export const createTask = (newTask) => API.post("/task/createTask", newTask);
 export const deleteTask = (id) => API.delete(`/task/delete/${id}`);
@@ -72,3 +74,9 @@ export const getTeamTasksBySearch = (email) =>
   API.get(`/task/search_team/${email}`);
 export const fetchProjectTasksByCoordinatorEmailWithArchived = (email) =>
   API.get(`/task/search_project_tasks/${email}`);
+export const fetchClientSummaryTable = (email) =>
+  API.get(`task/clientSummaryTable/${email}`);
+export const fetchUserSummaryTable = (email) =>
+  API.get(`task/userSummaryTable/${email}`);
+export const fetchTeamSummaryTable = (email) =>
+  API.get(`task/teamSummaryTable/${email}`);

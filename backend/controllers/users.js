@@ -170,7 +170,7 @@ export const updateUserName = async (req, res) => {
     if (!existingUser)
       return res.status(404).json({ messsage: "User doesn't exist." });
     if (!mongoose.Types.ObjectId.isValid(id))
-      return res.status(404).send("No user with that id.");
+      return res.status(404).send("Id is not valid.");
     await Users.findByIdAndUpdate(id, { name: name }, { new: true });
     res.status(200).json({ result: existingUser });
   } catch (error) {

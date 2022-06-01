@@ -36,10 +36,10 @@ const Login = () => {
 
   return (
     <Container component="main" maxWidth="xs">
-      <Typography variant="h4">{" WMitC "}</Typography>
+      <Typography variant="h4">{" Log in to the system "}</Typography>
       <br />
       <form onSubmit={handleSubmit}>
-        <Typography variant="h6">{"Email address"}</Typography>
+        <Typography variant="subtitle1">{"Email address"}</Typography>
         <InputGroup>
           <FormControl
             size="lg"
@@ -51,7 +51,7 @@ const Login = () => {
         </InputGroup>
         <br />
 
-        <Typography variant="h6">{"Password"}</Typography>
+        <Typography variant="subtitle1">{"Password"}</Typography>
         <Input
           name="password"
           handleChange={handleChange}

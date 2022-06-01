@@ -7,9 +7,7 @@ import { Button } from "react-bootstrap";
 import Input from "../../components/Auth/Input";
 import {
   getClient,
-  // updateClientCoordinator,
   updateClientEmail,
-  // updateClientName,
   updateClientPhone,
 } from "../../actions/clients";
 import { getManagers } from "../../actions/users";
@@ -23,7 +21,6 @@ const clientInitialData = {
 
 const ClientDetailsUpdate = () => {
   const { client } = useSelector((state) => state.clients);
-  // const { users } = useSelector((state) => state.users);
   const dispatch = useDispatch();
   const { id } = useParams();
   const [clientData, setClientData] = useState(clientInitialData);
@@ -46,11 +43,6 @@ const ClientDetailsUpdate = () => {
     dispatch(updateClientEmail({ id: client?._id, email: clientData?.email }));
   };
 
-  // const handleSubmitName = async (e) => {
-  //     e.preventDefault();
-  //     dispatch(updateClientName({id: client?._id, name:  clientData?.name}));
-  // };
-
   const handleSubmitPhoneNumber = async (e) => {
     e.preventDefault();
     dispatch(
@@ -60,14 +52,6 @@ const ClientDetailsUpdate = () => {
       })
     );
   };
-
-  // const handleSubmitCoordinator = async (e) => {
-  //     e.preventDefault();
-  //     if(clientData.id_supervisor === ""){
-  //         clientData.id_supervisor = users[0]?.email;
-  //     }
-  //     dispatch(updateClientCoordinator({id: client?._id, id_supervisor:  clientData?.id_supervisor}));
-  // };
 
   return (
     <div>
@@ -99,12 +83,6 @@ const ClientDetailsUpdate = () => {
       <br />
       <br />
 
-      {/*<form onSubmit={handleSubmitName}>*/}
-      {/*    <Typography variant="h6"><b>Name: </b>{client?.name}</Typography><br/>*/}
-      {/*    <Input size="small" name="name" handleChange={handleChange} value={clientData?.name}/><br/><br/>*/}
-      {/*    <Button variant="secondary" type="submit">Change name</Button>*/}
-      {/*</form><br/><br/>*/}
-
       <form onSubmit={handleSubmitPhoneNumber}>
         <Typography variant="h6">
           <b>Phone number: </b>
@@ -125,16 +103,6 @@ const ClientDetailsUpdate = () => {
       </form>
       <br />
       <br />
-
-      {/*<form onSubmit={handleSubmitCoordinator}>*/}
-      {/*    <Typography variant="h6"><b>Coordinator: </b>{client?.id_supervisor}</Typography><br/>*/}
-      {/*    <Form.Group className="mb-3" controlId="formBasicSelect">*/}
-      {/*        <Form.Control as="select" name="id_supervisor" onChange={handleChange}>*/}
-      {/*            { users?.map((manager) => ( <option value={manager?.email} key={manager?.email} >{manager?.name} ({manager?.email})</option> )) }*/}
-      {/*        </Form.Control>*/}
-      {/*    </Form.Group><br/>*/}
-      {/*    <Button variant="secondary" type="submit">Change supervisor</Button>*/}
-      {/*</form><br/><br/>*/}
     </div>
   );
 };

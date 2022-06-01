@@ -5,8 +5,12 @@ import {
   FETCH_ALL,
   FETCH_BY_SEARCH,
   FETCH_TASK,
+  PROJECT_HOURS,
   SORT_TASKS,
   START_LOADING,
+  USER_SUMMARY_TABLE,
+  CLIENT_SUMMARY_TABLE,
+  TEAM_SUMMARY_TABLE,
   UPDATE_TASK,
 } from "../constants/actionTypes";
 
@@ -50,6 +54,13 @@ export default (state = { isLoading: true, tasks: [] }, action) => {
         ),
       };
 
+    case PROJECT_HOURS:
+      return {
+        ...state,
+        project_tasks: action.project_tasks,
+        project_hours_data: action.hours_data,
+      };
+
     case SORT_TASKS:
       return {
         ...state,
@@ -58,6 +69,25 @@ export default (state = { isLoading: true, tasks: [] }, action) => {
         in_progress_tasks: action.in_progress_tasks,
         done_tasks: action.done_tasks,
       };
+
+    case USER_SUMMARY_TABLE:
+      return {
+        ...state,
+        user_summary_table: action.user_summary_table,
+      };
+
+    case TEAM_SUMMARY_TABLE:
+      return {
+        ...state,
+        team_summary_table: action.team_summary_table,
+      };
+
+    case CLIENT_SUMMARY_TABLE:
+      return {
+        ...state,
+        client_summary_table: action.client_summary_table,
+      };
+
     default:
       return state;
   }

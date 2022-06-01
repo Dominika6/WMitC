@@ -10,8 +10,11 @@ import {
   getTask,
   getProjectsTasksBySearchArchived,
   updateTaskWorkHours,
+  getClientSummaryTable,
+  getUserSummaryTable,
+  getTeamSummaryTable,getAllTasks, updateTaskStatus
 } from "../controllers/tasks.js";
-import { getAllTasks, updateTaskStatus } from "../controllers/tasks.js";
+
 
 const router = express.Router();
 
@@ -25,5 +28,8 @@ router.get("/:id", getTask);
 router.patch("/taskStatusUpdate/:id/:implementation_status", updateTaskStatus);
 router.patch("/taskWorkedHoursUpdate/:id/:value", updateTaskWorkHours);
 router.post("/:id/commentTask", commentTask);
+router.get("/clientSummaryTable/:email", getClientSummaryTable);
+router.get("/userSummaryTable/:email", getUserSummaryTable);
+router.get("/teamSummaryTable/:email", getTeamSummaryTable);
 
 export default router;

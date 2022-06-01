@@ -8,7 +8,6 @@ const router = express.Router();
 
 export const createProject = async (req, res) => {
   const { client, name, description } = req.body;
-
   try {
     const existingClient = await Clients.findOne({ email: client });
     if (!existingClient)
@@ -57,6 +56,16 @@ export const getMyClientsProjects = async (req, res) => {
       }
     }
     res.status(200).json({ data: myClientsProjects });
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
+export const getClientProjects = async (req, res) => {
+  const { email } = req.params;
+  try {
+    const projects = await Projects.find({ id_client: email });
+    res.status(200).json({ data: projects });
   } catch (error) {
     res.status(404).json({ message: error.message });
   }

@@ -52,3 +52,17 @@ export const getMyClientsProjects = (email) => async (dispatch) => {
     console.log(error);
   }
 };
+
+//szukamy projekty po kliencie
+export const getClientProjects = (email) => async (dispatch) => {
+  try {
+    dispatch({ type: START_LOADING_PROJECT });
+    const {
+      data: { data },
+    } = await api.fetchClientProjects(email);
+    dispatch({ type: FETCH_MY_CLIENTS_PROJECTS, payload: data });
+    dispatch({ type: END_LOADING_PROJECT });
+  } catch (error) {
+    console.log(error);
+  }
+};

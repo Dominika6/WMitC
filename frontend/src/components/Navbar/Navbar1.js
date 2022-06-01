@@ -44,9 +44,13 @@ const Navbar1 = () => {
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           <Navbar.Text>{user?.result?.name}</Navbar.Text>
         </Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse className="justify-content-end">
-          <Nav style={{ display: "flex", flexDirection: "row" }}>
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Collapse
+          className="justify-content-end"
+          id="responsive-navbar-nav"
+        >
+          <Nav className="justify-content-end">
+            {/*<Nav style={{ display: "flex", flexDirection: "row" }}>*/}
             {user && user?.result.position === "admin" ? (
               <>
                 <Nav.Link href="/createUser">Create User</Nav.Link> &nbsp;
@@ -66,7 +70,7 @@ const Navbar1 = () => {
                     Tasks
                   </NavDropdown.Item>
                   <NavDropdown.Item href={"/usersSummary"}>
-                    Users
+                    Workers
                   </NavDropdown.Item>
                   <NavDropdown.Item href={"/clientsSummary"}>
                     Clients
@@ -82,7 +86,6 @@ const Navbar1 = () => {
             ) : (
               <> </>
             )}
-
             {user ? (
               <>
                 <Nav.Link href="/myAccount">Account</Nav.Link> &nbsp; &nbsp;
@@ -91,12 +94,14 @@ const Navbar1 = () => {
                   Logout
                 </Button>
               </>
-            ) : (
+            ) : window.location.pathname !== "/login" ? (
               <>
                 <Nav.Link href="/login">
                   <Button variant="outline-success">Login</Button>
                 </Nav.Link>
               </>
+            ) : (
+              <></>
             )}
           </Nav>
         </Navbar.Collapse>

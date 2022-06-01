@@ -2,9 +2,10 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { useHistory } from "react-router-dom";
-import { Container, Button, Card } from "react-bootstrap";
+import { Container, Button } from "react-bootstrap";
 
 import { archiveTask } from "../../actions/tasks";
+import { Paper } from "@material-ui/core";
 
 const TaskCoordinator = ({ task }) => {
   const dispatch = useDispatch();
@@ -32,7 +33,7 @@ const TaskCoordinator = ({ task }) => {
   return (
     <>
       <br />
-      <Card raised="true" elevation={6}>
+      <Paper style={{ padding: "20px", borderRadius: "10px" }} elevation={6}>
         <Container>
           <div onClick={openTask}>
             <br />
@@ -43,9 +44,11 @@ const TaskCoordinator = ({ task }) => {
             {task?.deadline ? task?.deadline.split("T")[0] : <></>}
             <br />
             <b>Status:</b> {task?.implementation_status}
+            <br />
           </div>
           {user && user?.result.position === "manager" ? (
             <>
+              <br />
               <Button
                 variant="danger"
                 type="submit"
@@ -61,7 +64,7 @@ const TaskCoordinator = ({ task }) => {
           )}
           <br />
         </Container>
-      </Card>
+      </Paper>
     </>
   );
 };

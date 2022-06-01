@@ -38,7 +38,7 @@ export const getClientByTheirEmail = (email) => async (dispatch) => {
     const {
       data: { data },
     } = await api.getClientByTheirEmail(email);
-    dispatch({ type: FETCH_ALL, payload: data });
+    dispatch({ type: FETCH_CLIENT, payload: data });
     dispatch({ type: END_LOADING });
   } catch (error) {
     console.log(error);

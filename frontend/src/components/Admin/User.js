@@ -16,7 +16,15 @@ const User = ({ user }) => {
       <Card.Body>
         <ButtonBase onClick={openUser} component="span">
           <div>
-            <Typography variant="h5">{user.position}</Typography>
+            {user.position === "admin" ? (
+              <Typography variant="h5">Administrator</Typography>
+            ) : user.position === "manager" ? (
+              <Typography variant="h5">Coordinator</Typography>
+            ) : user.position === "user" ? (
+              <Typography variant="h5">Worker</Typography>
+            ) : (
+              <></>
+            )}
             <br />
             <Typography variant="h6">
               <b>Name:</b> {user.name}
@@ -27,9 +35,13 @@ const User = ({ user }) => {
             <Typography variant="h6">
               <b>Email:</b> {user.email}
             </Typography>
-            <Typography variant="h6">
-              <b>Supervisor:</b> {user.id_supervisor}
-            </Typography>
+            {user.position === "admin" ? (
+              <></>
+            ) : (
+              <Typography variant="h6">
+                <b>Supervisor:</b> {user.id_supervisor}
+              </Typography>
+            )}
           </div>
         </ButtonBase>
       </Card.Body>
