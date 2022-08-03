@@ -1,4 +1,3 @@
-import * as api from "../api";
 import {
   CREATE_CLIENT,
   END_LOADING,
@@ -7,10 +6,11 @@ import {
   START_LOADING,
   UPDATE_CLIENT,
 } from "../constants/actionTypes";
+import { Api } from "../api";
 
 export const createClient = (formData, history) => async (dispatch) => {
   try {
-    const { data } = await api.createClient(formData);
+    const { data } = await Api.getInstance().createClient(formData);
     dispatch({ type: CREATE_CLIENT, data });
     history.push("/createClient");
   } catch (error) {
@@ -24,7 +24,7 @@ export const getClientsBySearch = (email) => async (dispatch) => {
     dispatch({ type: START_LOADING });
     const {
       data: { data },
-    } = await api.fetchClientsBySearch(email);
+    } = await Api.getInstance().fetchClientsBySearch(email);
     dispatch({ type: FETCH_ALL, payload: data });
     dispatch({ type: END_LOADING });
   } catch (error) {
@@ -35,7 +35,7 @@ export const getClientsBySearch = (email) => async (dispatch) => {
 export const getAllClients = (page) => async (dispatch) => {
   try {
     dispatch({ type: START_LOADING });
-    const { data } = await api.fetchClients(page);
+    const { data } = await Api.getInstance().fetchClients(page);
     dispatch({ type: FETCH_ALL, payload: data });
     dispatch({ type: END_LOADING });
   } catch (error) {
@@ -46,7 +46,7 @@ export const getAllClients = (page) => async (dispatch) => {
 export const getClient = (id) => async (dispatch) => {
   try {
     dispatch({ type: START_LOADING });
-    const { data } = await api.fetchClient(id);
+    const { data } = await Api.getInstance().fetchClient(id);
     dispatch({ type: FETCH_CLIENT, payload: data });
     dispatch({ type: END_LOADING });
   } catch (error) {
@@ -56,7 +56,7 @@ export const getClient = (id) => async (dispatch) => {
 
 export const updateClientEmail = (clientDatas) => async (dispatch) => {
   try {
-    const { data } = await api.updateClientEmail(clientDatas);
+    const { data } = await Api.getInstance().updateClientEmail(clientDatas);
     dispatch({ type: UPDATE_CLIENT, payload: data });
     window.location.reload();
   } catch (error) {
@@ -66,7 +66,7 @@ export const updateClientEmail = (clientDatas) => async (dispatch) => {
 
 export const updateClientPhone = (clientDatas) => async (dispatch) => {
   try {
-    const { data } = await api.updateClientPhone(clientDatas);
+    const { data } = await Api.getInstance().updateClientPhone(clientDatas);
     dispatch({ type: UPDATE_CLIENT, payload: data });
     window.location.reload();
   } catch (error) {

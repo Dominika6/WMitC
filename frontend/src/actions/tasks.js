@@ -11,12 +11,12 @@ import {
   UPDATE_TASK,
   USER_SUMMARY_TABLE,
 } from "../constants/actionTypes";
-import * as api from "../api";
+import { Api } from "../api";
 
 export const getTask = (id) => async (dispatch) => {
   try {
     dispatch({ type: START_LOADING });
-    const { data } = await api.fetchTask(id);
+    const { data } = await Api.getInstance().fetchTask(id);
     dispatch({ type: FETCH_TASK, payload: data });
     dispatch({ type: END_LOADING });
   } catch (error) {
@@ -27,7 +27,7 @@ export const getTask = (id) => async (dispatch) => {
 export const archiveTask = (id) => async (dispatch) => {
   try {
     const newStatus = "archived";
-    const { data } = await api.updateTask(id, newStatus);
+    const { data } = await Api.getInstance().updateTask(id, newStatus);
     dispatch({ type: UPDATE_TASK, payload: data });
     window.location.reload();
   } catch (error) {
@@ -37,7 +37,7 @@ export const archiveTask = (id) => async (dispatch) => {
 
 export const updateTask = (id, status) => async (dispatch) => {
   try {
-    const { data } = await api.updateTask(id, status);
+    const { data } = await Api.getInstance().updateTask(id, status);
     dispatch({ type: UPDATE_TASK, payload: data });
     window.location.reload();
   } catch (error) {
@@ -47,7 +47,7 @@ export const updateTask = (id, status) => async (dispatch) => {
 
 export const updateTaskWorkHours = (taskDatas) => async (dispatch) => {
   try {
-    const { data } = await api.updateTaskWorkHours(taskDatas);
+    const { data } = await Api.getInstance().updateTaskWorkHours(taskDatas);
     dispatch({ type: UPDATE_TASK, payload: data });
     window.location.reload();
   } catch (error) {
@@ -57,7 +57,7 @@ export const updateTaskWorkHours = (taskDatas) => async (dispatch) => {
 
 export const createTask = (formData, history) => async (dispatch) => {
   try {
-    const { data } = await api.createTask(formData);
+    const { data } = await Api.getInstance().createTask(formData);
     dispatch({ type: CREATE_TASK, data });
     history.push("/createTask");
   } catch (error) {
@@ -71,7 +71,7 @@ export const getTasksBySearch = (email) => async (dispatch) => {
     dispatch({ type: START_LOADING });
     const {
       data: { data },
-    } = await api.fetchTasksBySearch(email);
+    } = await Api.getInstance().fetchTasksBySearch(email);
     dispatch({ type: FETCH_BY_SEARCH, payload: data });
     dispatch({ type: END_LOADING });
   } catch (error) {
@@ -81,7 +81,7 @@ export const getTasksBySearch = (email) => async (dispatch) => {
 
 export const commentTask = (value, id) => async (dispatch) => {
   try {
-    const { data } = await api.commentTask(value, id);
+    const { data } = await Api.getInstance().commentTask(value, id);
     dispatch({ type: COMMENT, payload: data });
     return data.comments;
   } catch (error) {
@@ -95,7 +95,9 @@ export const sortProjectTasksCoordinatorEmailByStatus =
       dispatch({ type: START_LOADING });
       const {
         data: { data },
-      } = await api.fetchProjectTasksByCoordinatorEmailWithArchived(email);
+      } = await Api.getInstance().fetchProjectTasksByCoordinatorEmailWithArchived(
+        email
+      );
       dispatch({ type: FETCH_BY_SEARCH, payload: data });
       dispatch({ type: END_LOADING });
 
@@ -135,7 +137,9 @@ export const workSummary = (email) => async (dispatch) => {
     dispatch({ type: START_LOADING });
     const {
       data: { data },
-    } = await api.fetchProjectTasksByCoordinatorEmailWithArchived(email);
+    } = await Api.getInstance().fetchProjectTasksByCoordinatorEmailWithArchived(
+      email
+    );
     const archivedTablesToReturn = [];
     const tablesToReturn = [];
     const titles = [
@@ -190,7 +194,7 @@ export const workSummary = (email) => async (dispatch) => {
 
 export const getClientSummaryTable = (email) => async (dispatch) => {
   dispatch({ type: START_LOADING });
-  const { data } = await api.fetchClientSummaryTable(email);
+  const { data } = await Api.getInstance().fetchClientSummaryTable(email);
   dispatch({ type: CLIENT_SUMMARY_TABLE, client_summary_table: data });
   dispatch({ type: END_LOADING });
 };
@@ -198,7 +202,7 @@ export const getClientSummaryTable = (email) => async (dispatch) => {
 // na wejściu email konkretnego usera
 export const getUserSummaryTable = (email) => async (dispatch) => {
   dispatch({ type: START_LOADING });
-  const { data } = await api.fetchUserSummaryTable(email);
+  const { data } = await Api.getInstance().fetchUserSummaryTable(email);
   dispatch({ type: USER_SUMMARY_TABLE, user_summary_table: data });
   dispatch({ type: END_LOADING });
 };
@@ -206,7 +210,7 @@ export const getUserSummaryTable = (email) => async (dispatch) => {
 // na wejściu email koordynatora
 export const getTeamSummaryTable = (email) => async (dispatch) => {
   dispatch({ type: START_LOADING });
-  const { data } = await api.fetchTeamSummaryTable(email);
+  const { data } = await Api.getInstance().fetchTeamSummaryTable(email);
   dispatch({ type: TEAM_SUMMARY_TABLE, team_summary_table: data });
   dispatch({ type: END_LOADING });
 };

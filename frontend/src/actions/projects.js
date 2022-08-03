@@ -4,11 +4,11 @@ import {
   FETCH_MY_CLIENTS_PROJECTS,
   START_LOADING_PROJECT,
 } from "../constants/actionTypes";
-import * as api from "../api";
+import { Api } from "../api";
 
 export const createProject = (formData, history) => async (dispatch) => {
   try {
-    const { data } = await api.createProject(formData);
+    const { data } = await Api.getInstance().createProject(formData);
     dispatch({ type: CREATE_PROJECT, data });
 
     history.push("/createProject");
@@ -23,7 +23,7 @@ export const getMyClientsProjects = (email) => async (dispatch) => {
     dispatch({ type: START_LOADING_PROJECT });
     const {
       data: { data },
-    } = await api.fetchMyClientsProjects(email);
+    } = await Api.getInstance().fetchMyClientsProjects(email);
     dispatch({ type: FETCH_MY_CLIENTS_PROJECTS, payload: data });
     dispatch({ type: END_LOADING_PROJECT });
   } catch (error) {

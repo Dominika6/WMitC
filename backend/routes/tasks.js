@@ -1,6 +1,5 @@
 import express from "express";
 
-import auth from "../middleware/auth.js";
 import {
   getTasksBySearch,
   createTask,
@@ -19,7 +18,7 @@ import {
 
 const router = express.Router();
 
-router.post("/createTask", auth, createTask);
+router.post("/createTask", createTask);
 router.get("/search/:email", getTasksBySearch);
 router.get("/search_team/:email", getTeamTasksBySearch);
 router.get("/search_project_tasks/:email", getProjectsTasksBySearchArchived);

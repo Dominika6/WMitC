@@ -1,6 +1,5 @@
 import express from "express";
 
-import auth from "../middleware/auth.js";
 import {
   getClientsBySearch,
   getAllClients,
@@ -15,7 +14,7 @@ import {
 
 const router = express.Router();
 
-router.post("/createClient", auth, createClient);
+router.post("/createClient", createClient);
 router.get("/search/:email", getClientsBySearch);
 router.get("/search/client/:email", getClientByTheirEmail);
 router.get("/clients", getAllClients);
